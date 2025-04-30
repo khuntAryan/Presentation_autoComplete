@@ -1,0 +1,55 @@
+import { Shape } from '../classes/shape';
+import { XmlElement } from '../types/xml-types';
+import { ChartModificationCallback, ImportedElement, ShapeTargetType, Target, Workbook } from '../types/types';
+import { IChart } from '../interfaces/ichart';
+import { RootPresTemplate } from '../interfaces/root-pres-template';
+import IArchive from '../interfaces/iarchive';
+import { ContentTypeExtension } from '../enums/content-type-map';
+export declare class Chart extends Shape implements IChart {
+    sourceWorksheet: number | string;
+    targetWorksheet: number | string;
+    worksheetFilePrefix: string;
+    wbEmbeddingsPath: string;
+    wbExtension: string;
+    relTypeChartColorStyle: string;
+    relTypeChartStyle: string;
+    relTypeChartImage: string;
+    relTypeChartThemeOverride: string;
+    wbRelsPath: string;
+    styleRelationFiles: {
+        [key: string]: string[];
+    };
+    callbacks: ChartModificationCallback[];
+    constructor(shape: ImportedElement, targetType: ShapeTargetType);
+    modify(targetTemplate: RootPresTemplate, targetSlideNumber: number): Promise<Chart>;
+    append(targetTemplate: RootPresTemplate, targetSlideNumber: number): Promise<Chart>;
+    remove(targetTemplate: RootPresTemplate, targetSlideNumber: number): Promise<Chart>;
+    modifyOnAddedSlide(targetTemplate: RootPresTemplate, targetSlideNumber: number): Promise<Chart>;
+    prepare(targetTemplate: RootPresTemplate, targetSlideNumber: number): Promise<void>;
+    clone(): Promise<void>;
+    modifyChartData(): Promise<void>;
+    readWorkbook(): Promise<Workbook>;
+    writeWorkbook(workbook: Workbook): Promise<void>;
+    copyFiles(): Promise<void>;
+    getWorksheetFilePrefix(targetRelFile: string): Promise<string>;
+    appendTypes(): Promise<void>;
+    copyChartFiles(): Promise<void>;
+    copyChartStyleFiles(): Promise<void>;
+    getChartStyles(): Promise<void>;
+    appendToSlideRels(): Promise<XmlElement>;
+    editTargetWorksheetRel(): Promise<void>;
+    updateTargetWorksheetRelation(targetRelFile: any, element: any, attribute: any, value: any): void;
+    getTargetChartImageUri(origin: string): {
+        source: string;
+        target: string;
+        rel: string;
+        extension: ContentTypeExtension;
+    };
+    copyWorksheetFile(): Promise<void>;
+    appendChartExtensionToContentType(): Promise<XmlElement | boolean>;
+    appendChartToContentType(): Promise<XmlElement>;
+    appendColorToContentType(): Promise<XmlElement>;
+    appendStyleToContentType(): Promise<XmlElement>;
+    appendThemeOverrideToContentType(): Promise<XmlElement>;
+    static getAllOnSlide(archive: IArchive, relsPath: string): Promise<Target[]>;
+}
