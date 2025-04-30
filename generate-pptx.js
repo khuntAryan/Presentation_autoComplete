@@ -62,6 +62,7 @@ async function fillPresentation() {
         challenge_title: "Community-Driven Solutions",
         challenge_bullets: "• Community-led restoration through agroforestry training\n• Water conservation using 'half-moon' stone barriers\n• Planting drought-resistant native species like Acacia senegal\n• Leveraging satellite imagery and AI for monitoring\n• Integrating trees with crops for better farm productivity\n• Senegal's focus on fruit trees providing both environmental restoration and income"
       }
+      
     };
     
     // Process slides
