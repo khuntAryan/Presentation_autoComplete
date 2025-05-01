@@ -1,0 +1,2 @@
+python-pptx==0.6.21
+flask==2.0.1

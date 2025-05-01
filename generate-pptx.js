@@ -1,184 +1,145 @@
+import express from 'express';
+import multer from 'multer';
 import { Automizer, ModifyTextHelper } from 'pptx-automizer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import axios from 'axios';
+import FormData from 'form-data';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-async function fillPresentation() {
-  try {
-    // Verify template exists
-    const templatePath = path.join(__dirname, 'templates', 'test.pptx');
-    if (!fs.existsSync(templatePath)) {
-      throw new Error(`Template file not found: ${templatePath}`);
-    }
-    console.log(`Template file exists at: ${templatePath}`);
+const app = express();
+const upload = multer({ dest: 'uploads/' });
 
-    const automizer = new Automizer({
-      templateDir: path.join(__dirname, 'templates'),
-      outputDir: path.join(__dirname, 'output'),
-      removeExistingSlides: true,
-    });
+// Ensure directories exist
+['templates', 'output', 'uploads'].forEach(dir => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
+});
 
-    // Load template with explicit name
-    const pres = automizer
-      .loadRoot('test.pptx')
-      .load('test.pptx', 'myTemplate');
-    
-    console.log('Template loaded successfully');
-    
-    // Get creation IDs with error handling
-    const creationIds = await pres.setCreationIds();
-    console.log('Creation IDs:', JSON.stringify(creationIds, null, 2));
-    
-    // Check if any templates were found
-    if (!creationIds || creationIds.length === 0) {
-      throw new Error('No templates found in creationIds');
-    }
-    
-    // Find the template by name rather than assuming index 0
-    const myTemplate = creationIds.find(t => t.name === 'myTemplate' || t.name === '');
-    if (!myTemplate) {
-      throw new Error('Template "myTemplate" not found in creationIds');
-    }
-    
-    const totalSlides = myTemplate.slides.length;
-    console.log(`Template has ${totalSlides} slides`);
-    
-    // Define comprehensive content for all slides
-    const content = {
-      1: {
-        title: "The Great Green Wall Initiative",
-        subtitle: "Restoring Life on Land in Africa - A Case Study in Social Engineering"
-      },
-      2: {
-        card1_title: "The Sahel's Challenge",
-        card1_content: "• Once fertile region stretching 8,000km across Africa\n• Now faces severe desertification affecting 40% of land\n• Communities suffering from poverty, food insecurity, and migration\n• Climate change amplifying desertification at 3-5% annually",
-        card2_title: "The Vision of the Great Green Wall",
-        card2_content: "• Restore 100 million hectares of degraded land by 2030\n• Create 10 million sustainable jobs for rural populations\n• Sequester 250 million tons of carbon dioxide\n• Build resilience for 250 million people in the Sahel"
-      },
-      3: {
-        challenge_title: "Community-Driven Solutions",
-        challenge_bullets: "• Community-led restoration through agroforestry training\n• Water conservation using 'half-moon' stone barriers\n• Planting drought-resistant native species like Acacia senegal\n• Leveraging satellite imagery and AI for monitoring\n• Integrating trees with crops for better farm productivity\n• Senegal's focus on fruit trees providing both environmental restoration and income"
-      }
-      
-    };
-    
-    // Process slides
-    for (let slideNum = 1; slideNum <= totalSlides; slideNum++) {
-      pres.addSlide('myTemplate', slideNum, async (slide) => {
-        const elements = await slide.getAllTextElementIds();
-        console.log(`Slide ${slideNum} elements:`, elements);
+// New function to preprocess templates with Python service
+async function preprocessTemplate(templatePath) {
+    try {
+        const form = new FormData();
+        form.append('file', fs.createReadStream(templatePath));
         
-        // First try to identify elements based on their current text content
-        for (const elementId of elements) {
-          slide.modifyElement(elementId, [
-            (element) => {
-              try {
-                const textContent = element.textContent || '';
-                
-                // Slide 1 content
-                if (textContent.includes('{{TITLE}}')) {
-                  console.log(`Found {{TITLE}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[1].title)(element);
-                }
-                else if (textContent.includes('{{SUBTITLE}}')) {
-                  console.log(`Found {{SUBTITLE}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[1].subtitle)(element);
-                }
-                
-                // Slide 2 content
-                else if (textContent.includes('{{CARD1_TITLE}}')) {
-                  console.log(`Found {{CARD1_TITLE}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[2].card1_title)(element);
-                }
-                else if (textContent.includes('{{CARD1_CONTENT}}')) {
-                  console.log(`Found {{CARD1_CONTENT}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[2].card1_content)(element);
-                }
-                else if (textContent.includes('{{CARD2_TITLE}}')) {
-                  console.log(`Found {{CARD2_TITLE}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[2].card2_title)(element);
-                }
-                else if (textContent.includes('{{CARD2_CONTENT}}')) {
-                  console.log(`Found {{CARD2_CONTENT}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[2].card2_content)(element);
-                }
-                
-                // Slide 3 content
-                else if (textContent.includes('{{CHALLENGE_TITLE}}')) {
-                  console.log(`Found {{CHALLENGE_TITLE}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[3].challenge_title)(element);
-                }
-                else if (textContent.includes('{{CHALLENGE_BULLETS}}')) {
-                  console.log(`Found {{CHALLENGE_BULLETS}} in element ${elementId}`);
-                  element = ModifyTextHelper.setText(content[3].challenge_bullets)(element);
-                }
-                
-                return element;
-              } catch (err) {
-                console.error(`Error processing element ${elementId}:`, err);
-                return element;
-              }
-            }
-          ]);
-        }
+        // Call Python preprocessing service
+        const response = await axios.post('http://localhost:5000/api/preprocess', form, {
+            headers: {
+                ...form.getHeaders(),
+            },
+            responseType: 'arraybuffer',
+        });
         
-        // Fallback approach using standard PowerPoint element naming
-        if (slideNum === 1) {
-          // Try standard title/subtitle element names
-          if (elements.includes('Title 1')) {
-            slide.modifyElement('Title 1', [
-              ModifyTextHelper.setText(content[1].title)
-            ]);
-          }
-          if (elements.includes('Subtitle 2')) {
-            slide.modifyElement('Subtitle 2', [
-              ModifyTextHelper.setText(content[1].subtitle)
-            ]);
-          }
-        }
-        else if (slideNum === 2) {
-          // Try to identify card text boxes by their position in elements array
-          const textBoxes = elements.filter(e => e.includes('TextBox'));
-          if (textBoxes.length >= 4) {
-            slide.modifyElement(textBoxes[0], [
-              ModifyTextHelper.setText(content[2].card1_title)
-            ]);
-            slide.modifyElement(textBoxes[1], [
-              ModifyTextHelper.setText(content[2].card1_content)
-            ]);
-            slide.modifyElement(textBoxes[2], [
-              ModifyTextHelper.setText(content[2].card2_title)
-            ]);
-            slide.modifyElement(textBoxes[3], [
-              ModifyTextHelper.setText(content[2].card2_content)
-            ]);
-          }
-        }
-        else if (slideNum === 3) {
-          // Try to identify challenge bullets text boxes
-          const textBoxes = elements.filter(e => e.includes('TextBox'));
-          if (textBoxes.length >= 1) {
-            slide.modifyElement(textBoxes[0], [
-              ModifyTextHelper.setText(content[3].challenge_bullets)
-            ]);
-          }
-        }
-      });
+        // Save preprocessed file
+        const processedPath = path.join(__dirname, 'templates', `preprocessed_${path.basename(templatePath)}`);
+        fs.writeFileSync(processedPath, response.data);
+        
+        return processedPath;
+    } catch (error) {
+        console.error('Error preprocessing template:', error);
+        throw new Error(`Failed to preprocess template: ${error.message}`);
     }
-
-    const outputFile = `filled-${Date.now()}.pptx`;
-    await pres.write(outputFile);
-    console.log(`Successfully generated: ${outputFile}`);
-    
-  } catch (error) {
-    console.error('Error generating presentation:', error);
-    throw error;
-  }
 }
 
-fillPresentation()
-  .then(() => console.log('Presentation generation completed'))
-  .catch(error => console.error(`Failed to generate presentation: ${error.message}`));
+app.post('/api/generate', upload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        const contentData = JSON.parse(req.body.content || '{}');
+        const uploadedFile = req.file;
+        
+        // New step: Preprocess the template with Python service
+        const processedTemplatePath = await preprocessTemplate(uploadedFile.path);
+        console.log(`Template preprocessed: ${processedTemplatePath}`);
+        
+        // Setup automizer with the preprocessed template
+        const automizer = new Automizer({
+            templateDir: path.dirname(processedTemplatePath),
+            outputDir: path.join(__dirname, 'output'),
+            removeExistingSlides: true
+        });
+        
+        // Load the preprocessed template
+        const pres = automizer.loadRoot(path.basename(processedTemplatePath));
+        
+        // Set creation IDs for slide information
+        const creationIds = await pres.setCreationIds();
+        
+        if (!creationIds || creationIds.length === 0) {
+            throw new Error('No templates found in the presentation');
+        }
+        
+        // Get total slides
+        const totalSlides = creationIds[0].slides.length;
+        console.log(`Template has ${totalSlides} slides`);
+        
+        // Process each slide
+        for (let slideNum = 1; slideNum <= totalSlides; slideNum++) {
+            pres.addSlide(slideNum, async (slide) => {
+                // Get all elements on this slide
+                const elements = await slide.getAllTextElementIds();
+                console.log(`Slide ${slideNum} elements:`, elements);
+                
+                // Get content for this slide
+                const slideContent = contentData[slideNum] || {};
+                
+                // Apply content to each text element
+                for (const elementId of elements) {
+                    slide.modifyElement(elementId, [
+                        (element) => {
+                            const textContent = element.textContent || '';
+                            
+                            // Find placeholder pattern {{KEY}} and replace with content
+                            for (const [key, value] of Object.entries(slideContent)) {
+                                const placeholder = `{{${key}}}`;
+                                if (textContent.includes(placeholder)) {
+                                    console.log(`Found placeholder ${placeholder} in element ${elementId}`);
+                                    return ModifyTextHelper.setText(value)(element);
+                                }
+                            }
+                            
+                            return element;
+                        }
+                    ]);
+                }
+            });
+        }
+        
+        // Generate output file
+        const outputFile = `enhanced-${Date.now()}.pptx`;
+        const outputPath = path.join(__dirname, 'output', outputFile);
+        await pres.write(outputFile);
+        
+        // Clean up temporary files
+        fs.unlinkSync(uploadedFile.path);
+        
+        res.json({
+            message: 'PowerPoint enhanced successfully',
+            filePath: `/output/${outputFile}`,
+            downloadUrl: `/download/${outputFile}`
+        });
+        
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Download endpoint
+app.get('/download/:filename', (req, res) => {
+    const filePath = path.join(__dirname, 'output', req.params.filename);
+    if (fs.existsSync(filePath)) {
+        return res.download(filePath);
+    }
+    res.status(404).json({ error: 'File not found' });
+});
+
+app.listen(3000, () => {
+    console.log('Node.js service running on port 3000');
+});
