@@ -3,6 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
+// Import the mapping function
+import { mapContent } from './services/mapContent.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -19,7 +22,7 @@ async function fillPresentation() {
     const automizer = new Automizer({
       templateDir: path.join(__dirname, 'templates'),
       outputDir: path.join(__dirname, 'output'),
-      removeExistingSlides: true, // ✅ Remove old slides from root presentation
+      removeExistingSlides: true,
     });
 
     const pres = automizer
@@ -35,60 +38,13 @@ async function fillPresentation() {
     const totalSlides = myTemplate.slides.length;
     console.log(`✅ Template has ${totalSlides} slides`);
 
-    const userContent = {
-      1: {
-        '{{CONTENT_1_SLIDE_1}}': 'Presentation ',
-      },
-      2: {
-        '{{CONTENT_1_SLIDE_2}}': 'Slide 2 - Primary section',
-        '{{CONTENT_2_SLIDE_2}}': 'Slide 2 - Supporting data',
-      },
-      3: {
-        '{{CONTENT_1_SLIDE_3}}': 'Slide 3 - Overview block',
-        '{{CONTENT_4_SLIDE_3}}': 'Slide 3 - Extra insights',
-        '{{HEADER_2_SLIDE_3}}': 'Slide 3 - Section Header 2',
-        '{{HEADER_3_SLIDE_3}}': 'Slide 3 - Section Header 3',
-      },
-      4: {
-        '{{CONTENT_1_SLIDE_4}}': 'Slide 4 - Introduction',
-        '{{CONTENT_2_SLIDE_4}}': 'Slide 4 - Details block',
-        '{{CONTENT_3_SLIDE_4}}': 'Slide 4 - Data analysis',
-      },
-      5: {
-        '{{CONTENT_1_SLIDE_5}}': 'Slide 5 - Key points',
-        '{{CONTENT_2_SLIDE_5}}': 'Slide 5 - Visual stats',
-        '{{CONTENT_3_SLIDE_5}}': 'Slide 5 - Explanation section',
-        '{{CONTENT_4_SLIDE_5}}': 'Slide 5 - Wrap-up',
-        '{{CONTENT_5_SLIDE_5}}': 'Slide 5 - Final remarks',
-      },
-      6: {
-        '{{CONTENT_1_SLIDE_6}}': 'Slide 6 - Start content',
-        '{{CONTENT_2_SLIDE_6}}': 'Slide 6 - Middle section',
-        '{{CONTENT_3_SLIDE_6}}': 'Slide 6 - Concluding block',
-        '{{CONTENT_4_SLIDE_6}}': 'Slide 6 - Summary',
-        '{{CONTENT_5_SLIDE_6}}': 'Slide 6 - Additional notes',
-      },
-      7: {
-        '{{CONTENT_1_SLIDE_7}}': 'Slide 7 - Overview',
-        '{{CONTENT_2_SLIDE_7}}': 'Slide 7 - Deep dive',
-      },
-      8: {
-        '{{CONTENT_1_SLIDE_8}}': 'Slide 8 - High-level ideas',
-        '{{CONTENT_2_SLIDE_8}}': 'Slide 8 - Trends',
-        '{{CONTENT_3_SLIDE_8}}': 'Slide 8 - Use cases',
-      },
-      9: {
-        '{{CONTENT_1_SLIDE_9}}': 'Slide 9 - Problems addressed',
-        '{{CONTENT_2_SLIDE_9}}': 'Slide 9 - Solution architecture',
-        '{{CONTENT_3_SLIDE_9}}': 'Slide 9 - Key takeaways',
-      },
-      10: {
-        '{{CONTENT_1_SLIDE_10}}': 'Slide 10 - Summary points',
-      },
-    };
-    
+    // Dynamically load mapped content using your mapping service
+    const userContent = mapContent(
+      path.join(__dirname, 'data', 'mapped-content.json'),
+      path.join(__dirname, 'data', 'user-content.json')
+    );
 
-    console.log('✅ User content loaded for testing');
+    console.log('✅ User content loaded from mapping service');
 
     for (let slideNum = 1; slideNum <= totalSlides; slideNum++) {
       const slideContent = userContent[slideNum] || {};

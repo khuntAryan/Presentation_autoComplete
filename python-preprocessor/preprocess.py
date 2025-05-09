@@ -1,10 +1,15 @@
 import os
 import re
 import sys
+import json
 import logging
 from typing import Tuple, Set, List, Dict
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE, PP_PLACEHOLDER
+
+input_path = sys.argv[1]
+output_path = sys.argv[2]
+json_output_path = "data/mapped-content.json"  # <-- Add this line
 
 # Configure logging
 logging.basicConfig(
@@ -24,7 +29,7 @@ CONFIG = {
         r'your\s+text\s+here'
     ],
     'position_thresholds': {
-        'header_top': 0.2,  # 20% of slide height
+        'header_top': 0.2,
         'bullet_indicator': ['•', '-', '*']
     },
     'type_mapping': {
@@ -73,20 +78,16 @@ def detect_placeholder_type(shape, text: str, slide_height: int) -> str:
 
     if any(char in text for char in CONFIG['position_thresholds']['bullet_indicator']):
         return CONFIG['type_mapping']['bullet']
-
     if 'title' in shape_name:
         return CONFIG['type_mapping']['title']
     if 'subtitle' in shape_name:
         return CONFIG['type_mapping']['subtitle']
-
     if shape.top < slide_height * CONFIG['position_thresholds']['header_top']:
         return CONFIG['type_mapping']['header']
-
     if len(text.split('\n')) > 1:
         return CONFIG['type_mapping']['bullet']
     if len(text.split('. ')) > 2:
         return CONFIG['type_mapping']['content']
-
     return CONFIG['type_mapping']['content']
 
 def generate_placeholder_name(placeholder_type: str, slide_num: int, index: int, slide_title: str) -> str:
@@ -96,20 +97,16 @@ def generate_placeholder_name(placeholder_type: str, slide_num: int, index: int,
 def process_text_shape(shape, slide_num: int, slide_height: int, index: int, slide_title: str) -> str:
     try:
         text = shape.text.strip()
-
         if not text or is_default_placeholder(text):
             logger.debug(f"Skipping default text: '{text}'")
             return ""
-
         placeholder_type = detect_placeholder_type(shape, text, slide_height)
         if not placeholder_type:
             return ""
-
         new_name = generate_placeholder_name(placeholder_type, slide_num, index, slide_title)
         set_text_preserve_formatting(shape.text_frame, new_name)
         logger.info(f"Renamed '{text}' to '{new_name}'")
         return new_name
-
     except Exception as e:
         logger.warning(f"Error processing text shape: {str(e)}")
         return ""
@@ -128,7 +125,6 @@ def process_grouped_shapes(group_shape, slide_num: int, slide_height: int, start
     placeholders = []
     index = start_index
     shapes_sorted = sorted(group_shape.shapes, key=lambda s: s.top)
-
     for shape in shapes_sorted:
         if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
             inner, index = process_grouped_shapes(shape, slide_num, slide_height, index, slide_title)
@@ -140,15 +136,15 @@ def process_grouped_shapes(group_shape, slide_num: int, slide_height: int, start
                 index += 1
     return placeholders, index
 
-def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str]]:
+def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str], Dict[str, List[str]]]:
     try:
         if not os.path.exists(input_path):
             logger.error(f"Input file not found: {input_path}")
-            return False, set()
+            return False, set(), {}
 
         prs = Presentation(input_path)
         placeholders = set()
-        changes_made = 0
+        mapped = {}
 
         for slide_idx, slide in enumerate(prs.slides, 1):
             logger.info(f"\nProcessing slide {slide_idx}")
@@ -156,59 +152,48 @@ def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str]]:
             slide_title = ""
             index = 1
 
-            # Try to find the slide title if available
             for shape in slide.shapes:
                 if shape.has_text_frame and 'title' in shape.name.lower():
                     slide_title = shape.text.strip()
                     break
 
             shapes_sorted = sorted(slide.shapes, key=lambda s: s.top)
+            slide_placeholders = []
 
             for shape in shapes_sorted:
                 if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
                     results, index = process_grouped_shapes(shape, slide_idx, slide_height, index, slide_title)
+                    slide_placeholders.extend(results)
                     placeholders.update(results)
-                    changes_made += len(results)
                 elif shape.has_text_frame:
                     result = process_text_shape(shape, slide_idx, slide_height, index, slide_title)
                     if result:
+                        slide_placeholders.append(result)
                         placeholders.add(result)
-                        changes_made += 1
                         index += 1
                 elif is_image_placeholder(shape):
                     result = process_image_placeholder(shape, slide_idx, index, slide_title)
                     if result:
+                        slide_placeholders.append(result)
                         placeholders.add(result)
-                        changes_made += 1
                         index += 1
 
+            if slide_placeholders:
+                mapped[f"slide_{slide_idx}"] = slide_placeholders
+
         prs.save(output_path)
-        logger.info(f"\nTotal placeholders processed: {changes_made}")
-        return True, placeholders
+        logger.info(f"\nTotal placeholders processed: {len(placeholders)}")
+        return True, placeholders, mapped
 
     except Exception as e:
         logger.error(f"\nProcessing failed: {str(e)}")
-        return False, set()
-    
-    # (your entire code is untouched above this line...)
+        return False, set(), {}
 
-def generate_ai_prompt(placeholders: Set[str]) -> str:
-    sorted_ph = sorted(placeholders)
-    prompt_lines = [
-        "You are an AI assistant tasked with generating slide content for a PowerPoint presentation.",
-        "Below is a list of placeholders used in the presentation file.",
-        "Please fill in appropriate content for each placeholder based on the given topic.",
-        "",
-        "Example format:",
-        "{{TITLE_1_SLIDE_INTRO}}: The Future of AI in Education",
-        "{{BULLET_2_SLIDE_INTRO}}: - Personalized learning paths using AI",
-        "",
-        "Now generate the content for the following placeholders:",
-        ""
-    ]
-    prompt_lines.extend(sorted_ph)
-    prompt_lines.append("\nTopic: <INSERT YOUR TOPIC HERE>")
-    return "\n".join(prompt_lines)
+def write_json_mapping(mapping: Dict[str, List[str]], json_path: str):
+    os.makedirs(os.path.dirname(json_path), exist_ok=True)
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(mapping, f, indent=2, ensure_ascii=False)
+    logger.info(f"\nExported placeholder mapping to {json_path}")
 
 def main():
     if len(sys.argv) != 3:
@@ -218,17 +203,16 @@ def main():
     input_file = sys.argv[1]
     output_file = sys.argv[2]
 
-    success, placeholders = process_pptx(input_file, output_file)
+    success, placeholders, mapping = process_pptx(input_file, output_file)
 
     if success:
         print("\nSuccessfully processed placeholders:")
         for ph in sorted(placeholders):
             print(f" - {ph}")
 
-        prompt = generate_ai_prompt(placeholders)
-        logger.info("\n================= AI CONTENT PROMPT =================\n")
-        logger.info(prompt)
-        logger.info("\n====================================================\n")
+        # Export mapping to JSON
+        write_json_mapping(mapping, json_output_path)
+
         sys.exit(0)
     else:
         print("\nProcessing completed with errors")

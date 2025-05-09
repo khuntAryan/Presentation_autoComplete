@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload PPTX & Paste Content</title>
+</head>
+<body>
+<h1>Upload PPTX File</h1>
+<form id="uploadForm" enctype="multipart/form-data">
+<input type="file" name="pptx" accept=".pptx" required />
+<button type="submit">Upload</button>
+</form>
+<div id="uploadStatus"></div>
+<hr />
+
+<h2>Paste All Slide Content Below</h2>
+<form id="contentForm">
+<textarea id="bulkContent" rows="25" style="width:98%;" placeholder="Paste all your content here..."></textarea><br>
+<button type="submit">Save Content</button>
+</form>
+<div id="contentStatus"></div>
+<hr />
+
+<button id="processBtn">Process PPTX</button>
+<div id="processStatus"></div>
+
+<button id="generateBtn">Generate Final PPTX</button>
+<div id="generateStatus"></div>
+
+
+
+<script src="./app.js"></script>
+</body>
+</html>

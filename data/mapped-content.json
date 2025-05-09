@@ -1,0 +1,51 @@
+{
+  "slide_1": [
+    "{{CONTENT_1_SLIDE_1}}"
+  ],
+  "slide_2": [
+    "{{CONTENT_1_SLIDE_2}}",
+    "{{CONTENT_2_SLIDE_2}}"
+  ],
+  "slide_3": [
+    "{{CONTENT_1_SLIDE_3}}",
+    "{{HEADER_2_SLIDE_3}}",
+    "{{HEADER_3_SLIDE_3}}",
+    "{{CONTENT_4_SLIDE_3}}"
+  ],
+  "slide_4": [
+    "{{CONTENT_1_SLIDE_4}}",
+    "{{CONTENT_2_SLIDE_4}}",
+    "{{CONTENT_3_SLIDE_4}}"
+  ],
+  "slide_5": [
+    "{{CONTENT_1_SLIDE_5}}",
+    "{{CONTENT_2_SLIDE_5}}",
+    "{{CONTENT_3_SLIDE_5}}",
+    "{{CONTENT_4_SLIDE_5}}",
+    "{{CONTENT_5_SLIDE_5}}"
+  ],
+  "slide_6": [
+    "{{CONTENT_1_SLIDE_6}}",
+    "{{CONTENT_2_SLIDE_6}}",
+    "{{CONTENT_3_SLIDE_6}}",
+    "{{CONTENT_4_SLIDE_6}}",
+    "{{CONTENT_5_SLIDE_6}}"
+  ],
+  "slide_7": [
+    "{{CONTENT_1_SLIDE_7}}",
+    "{{CONTENT_2_SLIDE_7}}"
+  ],
+  "slide_8": [
+    "{{CONTENT_1_SLIDE_8}}",
+    "{{CONTENT_2_SLIDE_8}}",
+    "{{CONTENT_3_SLIDE_8}}"
+  ],
+  "slide_9": [
+    "{{CONTENT_1_SLIDE_9}}",
+    "{{CONTENT_2_SLIDE_9}}",
+    "{{CONTENT_3_SLIDE_9}}"
+  ],
+  "slide_10": [
+    "{{CONTENT_1_SLIDE_10}}"
+  ]
+}
