@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 async function fillPresentation() {
   try {
-    const templateFilename = 'processed_sample2.pptx';
+    const templateFilename = 'preprocessed_sample.pptx';
     const templatePath = path.join(__dirname, 'templates', templateFilename);
 
     if (!fs.existsSync(templatePath)) {
@@ -37,35 +37,56 @@ async function fillPresentation() {
 
     const userContent = {
       1: {
-        '{{CONTENT_1_SLIDE_1}}': 'Slide 1 - First content block',
-        '{{CONTENT_2_SLIDE_1}}': 'Slide 1 - Second content block',
+        '{{CONTENT_1_SLIDE_1}}': 'Slide 1 - Intro content block',
       },
       2: {
-        '{{HEADER_1_SLIDE_2}}': 'Slide 2 - Main Header',
-        '{{BULLET_POINTS_2_SLIDE_2}}': 'Slide 2 - Bullet points content',
+        '{{CONTENT_1_SLIDE_2}}': 'Slide 2 - Primary section',
+        '{{CONTENT_2_SLIDE_2}}': 'Slide 2 - Supporting data',
       },
       3: {
-        '{{HEADER_1_SLIDE_3}}': 'Slide 3 - Main Header',
-        '{{CONTENT_2_SLIDE_3}}': 'Slide 3 - Supporting details',
-        '{{CONTENT_3_SLIDE_3}}': 'Slide 3 - Extra info block',
+        '{{CONTENT_1_SLIDE_3}}': 'Slide 3 - Overview block',
+        '{{CONTENT_4_SLIDE_3}}': 'Slide 3 - Extra insights',
+        '{{HEADER_2_SLIDE_3}}': 'Slide 3 - Section Header 2',
+        '{{HEADER_3_SLIDE_3}}': 'Slide 3 - Section Header 3',
       },
       4: {
-        '{{HEADER_1_SLIDE_4}}': 'Slide 4 - Main Header',
-        '{{CONTENT_2_SLIDE_4}}': 'Slide 4 - Supporting details',
-        '{{CONTENT_3_SLIDE_4}}': 'Slide 4 - Extra info block',
-        '{{CONTENT_4_SLIDE_4}}': 'Slide 4 - Metrics section',
+        '{{CONTENT_1_SLIDE_4}}': 'Slide 4 - Introduction',
+        '{{CONTENT_2_SLIDE_4}}': 'Slide 4 - Details block',
+        '{{CONTENT_3_SLIDE_4}}': 'Slide 4 - Data analysis',
       },
       5: {
-        '{{HEADER_1_SLIDE_5}}': 'Slide 5 - Main Header',
-        '{{CONTENT_2_SLIDE_5}}': 'Slide 5 - Supporting details',
-        '{{CONTENT_3_SLIDE_5}}': 'Slide 5 - Extra info block',
-        '{{CONTENT_4_SLIDE_5}}': 'Slide 5 - Metrics section',
-        '{{CONTENT_5_SLIDE_5}}': 'Slide 5 - Final thoughts',
+        '{{CONTENT_1_SLIDE_5}}': 'Slide 5 - Key points',
+        '{{CONTENT_2_SLIDE_5}}': 'Slide 5 - Visual stats',
+        '{{CONTENT_3_SLIDE_5}}': 'Slide 5 - Explanation section',
+        '{{CONTENT_4_SLIDE_5}}': 'Slide 5 - Wrap-up',
+        '{{CONTENT_5_SLIDE_5}}': 'Slide 5 - Final remarks',
+      },
+      6: {
+        '{{CONTENT_1_SLIDE_6}}': 'Slide 6 - Start content',
+        '{{CONTENT_2_SLIDE_6}}': 'Slide 6 - Middle section',
+        '{{CONTENT_3_SLIDE_6}}': 'Slide 6 - Concluding block',
+        '{{CONTENT_4_SLIDE_6}}': 'Slide 6 - Summary',
+        '{{CONTENT_5_SLIDE_6}}': 'Slide 6 - Additional notes',
+      },
+      7: {
+        '{{CONTENT_1_SLIDE_7}}': 'Slide 7 - Overview',
+        '{{CONTENT_2_SLIDE_7}}': 'Slide 7 - Deep dive',
+      },
+      8: {
+        '{{CONTENT_1_SLIDE_8}}': 'Slide 8 - High-level ideas',
+        '{{CONTENT_2_SLIDE_8}}': 'Slide 8 - Trends',
+        '{{CONTENT_3_SLIDE_8}}': 'Slide 8 - Use cases',
+      },
+      9: {
+        '{{CONTENT_1_SLIDE_9}}': 'Slide 9 - Problems addressed',
+        '{{CONTENT_2_SLIDE_9}}': 'Slide 9 - Solution architecture',
+        '{{CONTENT_3_SLIDE_9}}': 'Slide 9 - Key takeaways',
       },
       10: {
-        '{{BULLET_POINTS_1_SLIDE_10}}': 'Slide 10 - Summary bullet points',
+        '{{CONTENT_1_SLIDE_10}}': 'Slide 10 - Summary points',
       },
     };
+    
 
     console.log('✅ User content loaded for testing');
 
