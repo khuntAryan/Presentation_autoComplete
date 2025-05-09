@@ -189,6 +189,26 @@ def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str]]:
     except Exception as e:
         logger.error(f"\nProcessing failed: {str(e)}")
         return False, set()
+    
+    # (your entire code is untouched above this line...)
+
+def generate_ai_prompt(placeholders: Set[str]) -> str:
+    sorted_ph = sorted(placeholders)
+    prompt_lines = [
+        "You are an AI assistant tasked with generating slide content for a PowerPoint presentation.",
+        "Below is a list of placeholders used in the presentation file.",
+        "Please fill in appropriate content for each placeholder based on the given topic.",
+        "",
+        "Example format:",
+        "{{TITLE_1_SLIDE_INTRO}}: The Future of AI in Education",
+        "{{BULLET_2_SLIDE_INTRO}}: - Personalized learning paths using AI",
+        "",
+        "Now generate the content for the following placeholders:",
+        ""
+    ]
+    prompt_lines.extend(sorted_ph)
+    prompt_lines.append("\nTopic: <INSERT YOUR TOPIC HERE>")
+    return "\n".join(prompt_lines)
 
 def main():
     if len(sys.argv) != 3:
@@ -204,6 +224,11 @@ def main():
         print("\nSuccessfully processed placeholders:")
         for ph in sorted(placeholders):
             print(f" - {ph}")
+
+        prompt = generate_ai_prompt(placeholders)
+        logger.info("\n================= AI CONTENT PROMPT =================\n")
+        logger.info(prompt)
+        logger.info("\n====================================================\n")
         sys.exit(0)
     else:
         print("\nProcessing completed with errors")

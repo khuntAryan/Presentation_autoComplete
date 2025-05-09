@@ -37,7 +37,7 @@ async function fillPresentation() {
 
     const userContent = {
       1: {
-        '{{CONTENT_1_SLIDE_1}}': 'Slide 1 - Intro content block',
+        '{{CONTENT_1_SLIDE_1}}': 'Presentation ',
       },
       2: {
         '{{CONTENT_1_SLIDE_2}}': 'Slide 2 - Primary section',
