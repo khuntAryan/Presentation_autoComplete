@@ -1,138 +1,65 @@
-Please generate content for a PowerPoint presentation based on the following structure.
-Presentation Topic: [INSERT YOUR TOPIC HERE]
 
+=== PRESENTATION PLACEHOLDER DESCRIPTION ===
 Instructions:
-1. Write the output in plain text, slide by slide, as shown in the example.
-2. Use the placeholder types and recommended word counts as a guide.
-3. It's OK to use fewer words than the word count, but do not go over.
-4. For bullets, use a new line for each point.
-5. Do NOT return JSON or any code block, only text.
+1. For each slide, start with 'Slide X:' (e.g. Slide 2:).
+2. Write the content for each placeholder as a new line, in order, directly after the slide heading.
+3. Do not add extra labels, keys, or formatting. Do not add explanations, summaries, or section breaks.
+4. Do not change the order or number of lines. Each line must match the placeholder order below.
+5. Keep word counts within the W values (e.g. W5 = max 5 words).
 
-Slide Structure and Placeholders:
+Example Format:
+slide_2: Welcome All
+• This is an example bullet with eight words
 
-Slide 1:
-  - Content (max 2 words)
-  - Content (max 3 words)
+   Follow this example STRICTLY
 
-Slide 2:
-  - Header (max 2 words)
-  - Header (max 3 words)
-  - Content (max 2 words)
-  - Content (max 2 words)
-  - Content (max 1 words)
-  - Content (max 2 words)
-  - Content (max 2 words)
-  - Content (max 1 words)
+Placeholder Requirements:
 
-Slide 3:
-  - Header (max 2 words)
-  - Header (max 5 words)
-  - Content (max 41 words)
+Slide 1:{{HEADER_1_SLIDE_1_W2}}
+  {{CONTENT_2_SLIDE_1_W2}}
 
-Slide 4:
-  - Header (max 2 words)
-  - Header (max 1 words)
-  - Bullet (max 2 words)
-  - Bullet (max 2 words)
-  - Bullet (max 2 words)
-  - Content (max 2 words)
-  - Content (max 2 words)
-  - Content (max 2 words)
+Slide 2:{{HEADER_1_SLIDE_2_W2}}
+  {{CONTENT_2_SLIDE_2_W2}}
+  {{CONTENT_3_SLIDE_2_W2}}
+  {{CONTENT_4_SLIDE_2_W2}}
+  {{CONTENT_5_SLIDE_2_W2}}
 
-Slide 5:
-  - Header (max 2 words)
-  - Header (max 2 words)
-  - Content (max 2 words)
-  - Content (max 2 words)
-  - Content (max 2 words)
+Slide 3:{{HEADER_1_SLIDE_3_W1}}
+  {{CONTENT_2_SLIDE_3_W54}}
+  {{CONTENT_3_SLIDE_3_W54}}
 
-Slide 6:
-  - Header (max 2 words)
-  - Header (max 2 words)
-  - Bullet (max 5 words)
-  - Content (max 23 words)
-  - Content (max 23 words)
-  - Bullet (max 4 words)
+Slide 4:{{HEADER_1_SLIDE_4_W1}}
+  {{HEADER_2_SLIDE_4_W1}}
+  {{CONTENT_3_SLIDE_4_W40}}
+  {{CONTENT_4_SLIDE_4_W1}}
+  {{CONTENT_5_SLIDE_4_W40}}
 
-Slide 7:
-  - Header (max 2 words)
-  - Header (max 2 words)
-  - Content (max 23 words)
+Slide 5:{{HEADER_1_SLIDE_5_W1}}
+  {{CONTENT_2_SLIDE_5_W46}}
+  {{CONTENT_3_SLIDE_5_W46}}
 
-Slide 8:
-  - Header (max 2 words)
-  - Header (max 2 words)
-  - Content (max 3 words)
-  - Content (max 23 words)
-  - Content (max 23 words)
+Slide 6:{{HEADER_1_SLIDE_6_W1}}
+  {{CONTENT_2_SLIDE_6_W54}}
 
-Slide 9:
-  - Header (max 2 words)
-  - Header (max 2 words)
-  - Content (max 3 words)
-  - Content (max 23 words)
-  - Content (max 23 words)
+Slide 7:{{HEADER_1_SLIDE_7_W1}}
+  {{HEADER_2_SLIDE_7_W32}}
+  {{HEADER_3_SLIDE_7_W32}}
+  {{CONTENT_4_SLIDE_7_W46}}
 
-Slide 10:
-  - Content (max 4 words)
-  - Bullet (max 5 words)
+Slide 8:{{HEADER_1_SLIDE_8_W1}}
 
-Example Output:
-Slide 1: Title Slide
-Title: Life on Land – Sustainable Development Goal 15
-Subtitle: Protecting, Restoring, and Promoting Terrestrial Ecosystems
-Presented by: [Your Name/Class/Institution]
+Slide 9:{{HEADER_1_SLIDE_9_W1}}
+  {{CONTENT_2_SLIDE_9_W92}}
 
-Slide 2: Objectives
-Understand the importance of Life on Land (SDG 15).
-Identify threats to terrestrial ecosystems.
-Explore actions and solutions to preserve biodiversity and land.
-Encourage individual and community involvement.
+Slide 10:{{HEADER_1_SLIDE_10_W1}}
+  {{HEADER_2_SLIDE_10_W2}}
+  {{CONTENT_3_SLIDE_10_W28}}
+  {{CONTENT_4_SLIDE_10_W2}}
+  {{CONTENT_5_SLIDE_10_W28}}
+  {{CONTENT_6_SLIDE_10_W2}}
+  {{CONTENT_7_SLIDE_10_W28}}
 
-Slide 3: What is Life on Land?
-SDG 15 focuses on conserving forests, combating desertification, halting land degradation, and protecting biodiversity.
-Healthy land ecosystems are vital for food, water, air, and climate stability.
-Supports life for more than 80% of terrestrial species.
+Slide 11:{{HEADER_1_SLIDE_11_W2}}
+  {{CONTENT_2_SLIDE_11_W2}}
 
-Slide 4: Importance of Forests and Land Ecosystems
-Forests cover 31% of Earth’s land area.
-Provide oxygen, regulate climate, prevent erosion, and support millions of species.
-Forests are also crucial for human livelihoods (1.6 billion people rely on them).
-
-Slide 5: Threats to Life on Land
-Deforestation (for agriculture, logging).
-Desertification (due to overgrazing, climate change).
-Pollution (soil contamination, plastics).
-Urbanization (loss of green spaces and ecosystems).
-Biodiversity loss (extinction due to habitat destruction).
-
-Slide 6: Impact of Biodiversity Loss
-Reduces ecosystem resilience.
-Affects food chains and natural processes (like pollination).
-Increases the risk of pandemics from disrupted wildlife.
-Threatens human survival and well-being.
-
-Slide 7: Global Efforts
-UN Convention on Biological Diversity.
-Bonn Challenge: Restore 350 million hectares by 2030.
-Protected Areas: 15% of land is under protection globally.
-Countries adopting policies for sustainable forestry and farming.
-
-Slide 8: What Can We Do?
-Reduce paper and wood consumption.
-Support reforestation and conservation programs.
-Avoid products from illegal logging or endangered species.
-Raise awareness and participate in local clean-up/planting events.
-
-Slide 9: Success Stories
-Costa Rica: Doubled forest cover through eco-policies and tourism.
-India’s Chipko Movement: Community-based forest protection.
-Great Green Wall in Africa: Reclaiming land across 20+ countries.
-
-Slide 10: Conclusion & Call to Action
-Healthy land is the foundation for a healthy planet.
-Every action counts-preserve, protect, and restore.
-Let’s build a future where both people and nature thrive.
-Quote: “The Earth is what we all have in common.” – Wendell Berry
-
-Remember: Do NOT use JSON. Write in text, slide by slide, as above.
+=============================================

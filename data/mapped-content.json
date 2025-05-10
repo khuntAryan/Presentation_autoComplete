@@ -1,69 +1,60 @@
 {
   "slide_1": [
-    "{{CONTENT_1_SLIDE_1_W2}}",
-    "{{CONTENT_2_SLIDE_1_W3}}"
+    "{{HEADER_1_SLIDE_1_W2}}",
+    "{{CONTENT_2_SLIDE_1_W2}}"
   ],
   "slide_2": [
     "{{HEADER_1_SLIDE_2_W2}}",
-    "{{HEADER_2_SLIDE_2_W3}}",
+    "{{CONTENT_2_SLIDE_2_W2}}",
     "{{CONTENT_3_SLIDE_2_W2}}",
     "{{CONTENT_4_SLIDE_2_W2}}",
-    "{{CONTENT_5_SLIDE_2_W1}}",
-    "{{CONTENT_6_SLIDE_2_W2}}",
-    "{{CONTENT_7_SLIDE_2_W2}}",
-    "{{CONTENT_8_SLIDE_2_W1}}"
+    "{{CONTENT_5_SLIDE_2_W2}}"
   ],
   "slide_3": [
-    "{{HEADER_1_SLIDE_3_W2}}",
-    "{{HEADER_2_SLIDE_3_W5}}",
-    "{{CONTENT_3_SLIDE_3_W41}}"
+    "{{HEADER_1_SLIDE_3_W1}}",
+    "{{CONTENT_2_SLIDE_3_W54}}",
+    "{{CONTENT_3_SLIDE_3_W54}}"
   ],
   "slide_4": [
-    "{{HEADER_1_SLIDE_4_W2}}",
+    "{{HEADER_1_SLIDE_4_W1}}",
     "{{HEADER_2_SLIDE_4_W1}}",
-    "{{BULLET_3_SLIDE_4_W2}}",
-    "{{BULLET_4_SLIDE_4_W2}}",
-    "{{BULLET_5_SLIDE_4_W2}}",
-    "{{CONTENT_6_SLIDE_4_W2}}",
-    "{{CONTENT_7_SLIDE_4_W2}}",
-    "{{CONTENT_8_SLIDE_4_W2}}"
+    "{{CONTENT_3_SLIDE_4_W40}}",
+    "{{CONTENT_4_SLIDE_4_W1}}",
+    "{{CONTENT_5_SLIDE_4_W40}}"
   ],
   "slide_5": [
-    "{{HEADER_1_SLIDE_5_W2}}",
-    "{{HEADER_2_SLIDE_5_W2}}",
-    "{{CONTENT_3_SLIDE_5_W2}}",
-    "{{CONTENT_4_SLIDE_5_W2}}",
-    "{{CONTENT_5_SLIDE_5_W2}}"
+    "{{HEADER_1_SLIDE_5_W1}}",
+    "{{CONTENT_2_SLIDE_5_W46}}",
+    "{{CONTENT_3_SLIDE_5_W46}}"
   ],
   "slide_6": [
-    "{{HEADER_1_SLIDE_6_W2}}",
-    "{{HEADER_2_SLIDE_6_W2}}",
-    "{{BULLET_3_SLIDE_6_W5}}",
-    "{{CONTENT_4_SLIDE_6_W23}}",
-    "{{CONTENT_5_SLIDE_6_W23}}",
-    "{{BULLET_6_SLIDE_6_W4}}"
+    "{{HEADER_1_SLIDE_6_W1}}",
+    "{{CONTENT_2_SLIDE_6_W54}}"
   ],
   "slide_7": [
-    "{{HEADER_1_SLIDE_7_W2}}",
-    "{{HEADER_2_SLIDE_7_W2}}",
-    "{{CONTENT_3_SLIDE_7_W23}}"
+    "{{HEADER_1_SLIDE_7_W1}}",
+    "{{HEADER_2_SLIDE_7_W32}}",
+    "{{HEADER_3_SLIDE_7_W32}}",
+    "{{CONTENT_4_SLIDE_7_W46}}"
   ],
   "slide_8": [
-    "{{HEADER_1_SLIDE_8_W2}}",
-    "{{HEADER_2_SLIDE_8_W2}}",
-    "{{CONTENT_3_SLIDE_8_W3}}",
-    "{{CONTENT_4_SLIDE_8_W23}}",
-    "{{CONTENT_5_SLIDE_8_W23}}"
+    "{{HEADER_1_SLIDE_8_W1}}"
   ],
   "slide_9": [
-    "{{HEADER_1_SLIDE_9_W2}}",
-    "{{HEADER_2_SLIDE_9_W2}}",
-    "{{CONTENT_3_SLIDE_9_W3}}",
-    "{{CONTENT_4_SLIDE_9_W23}}",
-    "{{CONTENT_5_SLIDE_9_W23}}"
+    "{{HEADER_1_SLIDE_9_W1}}",
+    "{{CONTENT_2_SLIDE_9_W92}}"
   ],
   "slide_10": [
-    "{{CONTENT_1_SLIDE_10_W4}}",
-    "{{BULLET_2_SLIDE_10_W5}}"
+    "{{HEADER_1_SLIDE_10_W1}}",
+    "{{HEADER_2_SLIDE_10_W2}}",
+    "{{CONTENT_3_SLIDE_10_W28}}",
+    "{{CONTENT_4_SLIDE_10_W2}}",
+    "{{CONTENT_5_SLIDE_10_W28}}",
+    "{{CONTENT_6_SLIDE_10_W2}}",
+    "{{CONTENT_7_SLIDE_10_W28}}"
+  ],
+  "slide_11": [
+    "{{HEADER_1_SLIDE_11_W2}}",
+    "{{CONTENT_2_SLIDE_11_W2}}"
   ]
 }

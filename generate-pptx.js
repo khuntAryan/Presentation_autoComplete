@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-// Import the mapping function
+
 import { mapContent } from './services/mapContent.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -38,7 +38,7 @@ async function fillPresentation() {
     const totalSlides = myTemplate.slides.length;
     console.log(`✅ Template has ${totalSlides} slides`);
 
-    // Dynamically load mapped content
+
     const userContent = mapContent(
       path.join(__dirname, 'data', 'mapped-content.json'),
       path.join(__dirname, 'data', 'user-content.json')
@@ -84,7 +84,7 @@ async function fillPresentation() {
       });
     }
 
-    // Use fixed output filename
+
     const outputFile = 'final-presentation.pptx';
     await pres.write(outputFile);
     console.log(`\n✅ Successfully generated/updated: ${outputFile}`);

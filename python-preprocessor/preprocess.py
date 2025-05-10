@@ -84,13 +84,11 @@ def detect_placeholder_type(shape, text: str, slide_height: int) -> str:
     return CONFIG['type_mapping']['content']
 
 def generate_placeholder_name(placeholder_type: str, slide_num: int, index: int, word_count: int) -> str:
-    """Generate placeholder name with position index and word count"""
     return f"{CONFIG['placeholder_prefix']}{placeholder_type}_{index}_SLIDE_{slide_num}_W{word_count}{CONFIG['placeholder_suffix']}"
 
 def process_slide_shapes(slide, slide_num: int, slide_height: int) -> Tuple[List[str], int]:
-    """Process all shapes in a slide with proper index tracking"""
     placeholders = []
-    index = 1  # Reset index for each slide
+    index = 1
     shapes_sorted = sorted(slide.shapes, key=lambda s: (s.top, s.left))
 
     for shape in shapes_sorted:
@@ -101,22 +99,22 @@ def process_slide_shapes(slide, slide_num: int, slide_height: int) -> Tuple[List
             text = shape.text.strip()
             if not text or is_default_placeholder(text):
                 continue
-                
+
             placeholder_type = detect_placeholder_type(shape, text, slide_height)
             word_count = len(re.findall(r'\b[\w-]+\b', text))
-            
+
             new_name = generate_placeholder_name(
                 placeholder_type=placeholder_type,
                 slide_num=slide_num,
                 index=index,
                 word_count=word_count
             )
-            
+
             set_text_preserve_formatting(shape.text_frame, new_name)
             placeholders.append(new_name)
             index += 1
             logger.info(f"Renamed '{text}' to '{new_name}'")
-            
+
         elif is_image_placeholder(shape):
             new_name = generate_placeholder_name(
                 placeholder_type=CONFIG['type_mapping']['image'],
@@ -131,11 +129,10 @@ def process_slide_shapes(slide, slide_num: int, slide_height: int) -> Tuple[List
     return placeholders, index
 
 def process_grouped_shapes(group_shape, slide_num: int, slide_height: int, start_index: int) -> Tuple[List[str], int]:
-    """Process grouped shapes recursively"""
     placeholders = []
     index = start_index
     shapes_sorted = sorted(group_shape.shapes, key=lambda s: (s.top, s.left))
-    
+
     for shape in shapes_sorted:
         if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
             inner, index = process_grouped_shapes(shape, slide_num, slide_height, index)
@@ -144,17 +141,17 @@ def process_grouped_shapes(group_shape, slide_num: int, slide_height: int, start
             text = shape.text.strip()
             if not text or is_default_placeholder(text):
                 continue
-                
+
             placeholder_type = detect_placeholder_type(shape, text, slide_height)
             word_count = len(re.findall(r'\b[\w-]+\b', text))
-            
+
             new_name = generate_placeholder_name(
                 placeholder_type=placeholder_type,
                 slide_num=slide_num,
                 index=index,
                 word_count=word_count
             )
-            
+
             set_text_preserve_formatting(shape.text_frame, new_name)
             placeholders.append(new_name)
             index += 1
@@ -163,7 +160,6 @@ def process_grouped_shapes(group_shape, slide_num: int, slide_height: int, start
     return placeholders, index
 
 def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str], Dict[str, List[str]]]:
-    """Main processing with sequential index tracking"""
     try:
         prs = Presentation(input_path)
         placeholders = set()
@@ -183,118 +179,44 @@ def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str], Dic
         return False, set(), {}
 
 def write_json_mapping(mapping: Dict[str, List[str]], json_path: str):
-    """Save mapping to JSON file"""
     os.makedirs(os.path.dirname(json_path), exist_ok=True)
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(mapping, f, indent=2, ensure_ascii=False)
     logger.info(f"\nExported placeholder mapping to {json_path}")
 
-def generate_ai_prompt(mapping: Dict[str, List[str]], output_path: str, topic: str = "[INSERT YOUR TOPIC HERE]"):
-    """Generate AI prompt template for plain text output (not JSON)"""
-    prompt_lines = [
-        "Please generate content for a PowerPoint presentation based on the following structure.",
-        f"Presentation Topic: {topic}",
-        "",
-        "Instructions:",
-        "1. Write the output in plain text, slide by slide, as shown in the example.",
-        "2. Use the placeholder types and recommended word counts as a guide.",
-        "3. It's OK to use fewer words than the word count, but do not go over.",
-        "4. For bullets, use a new line for each point.",
-        "5. Do NOT return JSON or any code block, only text.",
-        "",
-        "Slide Structure and Placeholders:"
-    ]
-
+def log_description(mapping: Dict[str, List[str]]):
+    desc = []
+    desc.append("\n=== PRESENTATION PLACEHOLDER DESCRIPTION ===")
+    desc.append("Instructions:")
+    desc.append("1. For each slide, start with 'Slide X:' (e.g. Slide 2:).")
+    desc.append("2. Write the content for each placeholder as a new line, in order, directly after the slide heading.")
+    desc.append("3. Do not add extra labels, keys, or formatting. Do not add explanations, summaries, or section breaks.")
+    desc.append("4. Do not change the order or number of lines. Each line must match the placeholder order below.")
+    desc.append("5. Keep word counts within the W values (e.g. W5 = max 5 words).")
+    desc.append("")
+    desc.append("Example Format:")
+    desc.append("slide_2: Welcome All")
+    desc.append("• This is an example bullet with eight words")
+    desc.append("")
+    desc.append("   Follow this example STRICTLY")
+    desc.append("\nPlaceholder Requirements:")
     for slide_key in sorted(mapping.keys(), key=lambda x: int(x.split('_')[1])):
         slide_num = slide_key.split('_')[1]
-        placeholders = mapping[slide_key]
-        prompt_lines.append(f"\nSlide {slide_num}:")
-        for ph in placeholders:
-            match = re.match(r'\{\{(\w+)_(\d+)_SLIDE_(\d+)_W(\d+)\}\}', ph)
-            if match:
-                ph_type, ph_index, slide_num, word_count = match.groups()
-                prompt_lines.append(
-                    f"  - {ph_type.title()} (max {word_count} words)"
-                )
+        phs = mapping[slide_key]
+        if phs:
+            desc.append(f"\nSlide {slide_num}:" + phs[0])
+            for ph in phs[1:]:
+                desc.append(f"  {ph}")
+    desc.append("\n=============================================\n")
+    print('\n'.join(desc))
+    return '\n'.join(desc)
 
-    prompt_lines.extend([
-        "",
-        "Example Output:",
-        "Slide 1: Title Slide",
-        "Title: Life on Land – Sustainable Development Goal 15",
-        "Subtitle: Protecting, Restoring, and Promoting Terrestrial Ecosystems",
-        "Presented by: [Your Name/Class/Institution]",
-        "",
-        "Slide 2: Objectives",
-        "Understand the importance of Life on Land (SDG 15).",
-        "Identify threats to terrestrial ecosystems.",
-        "Explore actions and solutions to preserve biodiversity and land.",
-        "Encourage individual and community involvement.",
-        "",
-        "Slide 3: What is Life on Land?",
-        "SDG 15 focuses on conserving forests, combating desertification, halting land degradation, and protecting biodiversity.",
-        "Healthy land ecosystems are vital for food, water, air, and climate stability.",
-        "Supports life for more than 80% of terrestrial species.",
-        "",
-        "Slide 4: Importance of Forests and Land Ecosystems",
-        "Forests cover 31% of Earth’s land area.",
-        "Provide oxygen, regulate climate, prevent erosion, and support millions of species.",
-        "Forests are also crucial for human livelihoods (1.6 billion people rely on them).",
-        "",
-        "Slide 5: Threats to Life on Land",
-        "Deforestation (for agriculture, logging).",
-        "Desertification (due to overgrazing, climate change).",
-        "Pollution (soil contamination, plastics).",
-        "Urbanization (loss of green spaces and ecosystems).",
-        "Biodiversity loss (extinction due to habitat destruction).",
-        "",
-        "Slide 6: Impact of Biodiversity Loss",
-        "Reduces ecosystem resilience.",
-        "Affects food chains and natural processes (like pollination).",
-        "Increases the risk of pandemics from disrupted wildlife.",
-        "Threatens human survival and well-being.",
-        "",
-        "Slide 7: Global Efforts",
-        "UN Convention on Biological Diversity.",
-        "Bonn Challenge: Restore 350 million hectares by 2030.",
-        "Protected Areas: 15% of land is under protection globally.",
-        "Countries adopting policies for sustainable forestry and farming.",
-        "",
-        "Slide 8: What Can We Do?",
-        "Reduce paper and wood consumption.",
-        "Support reforestation and conservation programs.",
-        "Avoid products from illegal logging or endangered species.",
-        "Raise awareness and participate in local clean-up/planting events.",
-        "",
-        "Slide 9: Success Stories",
-        "Costa Rica: Doubled forest cover through eco-policies and tourism.",
-        "India’s Chipko Movement: Community-based forest protection.",
-        "Great Green Wall in Africa: Reclaiming land across 20+ countries.",
-        "",
-        "Slide 10: Conclusion & Call to Action",
-        "Healthy land is the foundation for a healthy planet.",
-        "Every action counts-preserve, protect, and restore.",
-        "Let’s build a future where both people and nature thrive.",
-        "Quote: “The Earth is what we all have in common.” – Wendell Berry",
-        "",
-        "Remember: Do NOT use JSON. Write in text, slide by slide, as above."
-    ])
-
-    prompt = "\n".join(prompt_lines)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(prompt)
-    logger.info(f"\nGenerated AI prompt template at: {output_path}")
-
-def get_placeholder_description(ph_type: str) -> str:
-    descriptions = {
-        'TITLE': "concise and attention-grabbing title text",
-        'SUBTITLE': "brief supporting statement or tagline",
-        'HEADER': "section header text",
-        'BULLET': "bullet points list using '•'",
-        'CONTENT': "detailed paragraph content",
-        'IMAGE': "image description/caption"
-    }
-    return descriptions.get(ph_type, "general content")
+def write_description_to_file(mapping: Dict[str, List[str]], path: str):
+    desc = log_description(mapping)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(desc)
+    logger.info(f"Description written to {path}")
 
 def main():
     if len(sys.argv) != 3:
@@ -310,15 +232,9 @@ def main():
         print("\nSuccessfully processed placeholders:")
         for ph in sorted(placeholders):
             print(f" - {ph}")
-        
+
         write_json_mapping(mapping, "data/mapped-content.json")
-        generate_ai_prompt(mapping, "data/ai-prompt-template.txt")
-        
-        print("\nNext steps:")
-        print("1. Edit 'data/ai-prompt-template.txt' with your topic")
-        print("2. Use the prompt with your preferred AI service")
-        print("3. Save the AI response to 'data/user-content.txt' (plain text)")
-        print("4. Run the presentation generator")
+        write_description_to_file(mapping, "data/ai-prompt-template.txt")
         sys.exit(0)
     else:
         print("\nProcessing completed with errors")
