@@ -13,7 +13,8 @@ const inputPath = path.join(__dirname, 'python-preprocessor/templates/sample2.pp
 const outputPath = path.join(__dirname, 'python-preprocessor/output/preprocessed_sample.pptx');
 const userContentPath = path.join(__dirname, 'data/user-content.json');
 const mappedContentPath = path.join(__dirname, 'data/mapped-content.json');
-const generatePptxScript = path.join(__dirname, 'generate-pptx.js'); // Make sure this is correct!
+const generatePptxScript = path.join(__dirname, 'generate-pptx.js');
+const finalPptxPath = path.join(__dirname, 'output', 'final-presentation.pptx');
 
 const command = `python3 "${pythonScriptPath}" "${inputPath}" "${outputPath}"`;
 
@@ -41,7 +42,6 @@ app.post('/upload-pptx', upload.single('pptx'), (req, res) => {
 app.post('/save-user-content', (req, res) => {
   const { bulkContent } = req.body;
   if (!bulkContent) return res.status(400).send('No content provided.');
-
   try {
     const parsed = parseUserContent(bulkContent);
     fs.mkdirSync(path.dirname(userContentPath), { recursive: true });
@@ -66,10 +66,7 @@ app.post('/process-pptx', (req, res) => {
   });
 });
 
-// NEW: Generate Final PPTX
 app.post('/generate-pptx', (req, res) => {
-  // 1. Run the mapping logic (mapContent.js)
-  // 2. Run the generate-pptx.js script (which uses the mapping)
   exec(`node services/mapContent.js && node generate-pptx.js`, (error, stdout, stderr) => {
     if (error) {
       console.error("❌ Generation error:", error);
@@ -77,15 +74,41 @@ app.post('/generate-pptx', (req, res) => {
     }
     console.log("✅ Generation stdout:", stdout);
     console.error("⚠️ Generation stderr:", stderr);
-    res.send('Final PPTX generated successfully! Check the output folder.');
+    res.send('Final PPTX generated successfully!');
   });
+});
+
+// New: Check if PPTX file exists
+app.get('/check-file', (req, res) => {
+  res.json({ exists: fs.existsSync(finalPptxPath) });
+});
+
+// New: Preview PPTX (inline)
+app.get('/preview-pptx', (req, res) => {
+  if (fs.existsSync(finalPptxPath)) {
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+    res.setHeader('Content-Disposition', 'inline; filename="final-presentation.pptx"');
+    fs.createReadStream(finalPptxPath).pipe(res);
+  } else {
+    res.status(404).send('Presentation not found');
+  }
+});
+
+// New: Download PPTX (attachment)
+app.get('/download-pptx', (req, res) => {
+  if (fs.existsSync(finalPptxPath)) {
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+    res.setHeader('Content-Disposition', 'attachment; filename="final-presentation.pptx"');
+    fs.createReadStream(finalPptxPath).pipe(res);
+  } else {
+    res.status(404).send('Presentation not found');
+  }
 });
 
 app.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
 });
 
-// --- Helper function to parse user-pasted content ---
 function parseUserContent(text) {
   const slides = text.split(/(?:^|\n)Slide\s+\d+:/gi).map(s => s.trim()).filter(Boolean);
   const result = {};

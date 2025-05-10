@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 async function fillPresentation() {
   try {
     const templateFilename = 'preprocessed_sample.pptx';
-    const templatePath = path.join(__dirname, 'templates', templateFilename);
+    const templatePath = path.join(__dirname, 'python-preprocessor', 'output', templateFilename);
 
     if (!fs.existsSync(templatePath)) {
       throw new Error(`Template file not found: ${templatePath}`);
@@ -20,7 +20,7 @@ async function fillPresentation() {
     console.log(`✅ Template file exists at: ${templatePath}`);
 
     const automizer = new Automizer({
-      templateDir: path.join(__dirname, 'templates'),
+      templateDir: path.join(__dirname, 'python-preprocessor', 'output'),
       outputDir: path.join(__dirname, 'output'),
       removeExistingSlides: true,
     });
@@ -38,7 +38,7 @@ async function fillPresentation() {
     const totalSlides = myTemplate.slides.length;
     console.log(`✅ Template has ${totalSlides} slides`);
 
-    // Dynamically load mapped content using your mapping service
+    // Dynamically load mapped content
     const userContent = mapContent(
       path.join(__dirname, 'data', 'mapped-content.json'),
       path.join(__dirname, 'data', 'user-content.json')
@@ -84,9 +84,10 @@ async function fillPresentation() {
       });
     }
 
-    const outputFile = `filled-${Date.now()}.pptx`;
+    // Use fixed output filename
+    const outputFile = 'final-presentation.pptx';
     await pres.write(outputFile);
-    console.log(`\n✅ Successfully generated: ${outputFile}`);
+    console.log(`\n✅ Successfully generated/updated: ${outputFile}`);
 
   } catch (error) {
     console.error('❌ Error generating presentation:', error);
