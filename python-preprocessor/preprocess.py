@@ -160,6 +160,7 @@ def process_grouped_shapes(group_shape, slide_num: int, slide_height: int, start
     return placeholders, index
 
 def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str], Dict[str, List[str]]]:
+    """Main processing with sequential index tracking"""
     try:
         prs = Presentation(input_path)
         placeholders = set()
@@ -178,41 +179,70 @@ def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str], Dic
         logger.error(f"\nProcessing failed: {str(e)}")
         return False, set(), {}
 
+def get_slide_overview(slide, idx):
+    title = None
+    if hasattr(slide.shapes, "title") and slide.shapes.title:
+        title = slide.shapes.title.text.strip()
+    else:
+        for shape in slide.shapes:
+            if hasattr(shape, "text") and shape.text.strip():
+                title = shape.text.strip()
+                break
+
+    if title:
+        t = title.lower()
+        if any(word in t for word in ["agenda", "contents", "table of contents"]):
+            slide_type = "Table of Contents"
+        elif any(word in t for word in ["introduction", "welcome"]):
+            slide_type = "Introduction"
+        elif any(word in t for word in ["conclusion", "summary"]):
+            slide_type = "Conclusion"
+        elif any(word in t for word in ["team", "members"]):
+            slide_type = "Team"
+        else:
+            slide_type = "Content"
+    else:
+        slide_type = "Unknown"
+    return f"Slide {idx+1}: {slide_type} ({title if title else 'No title'})"
+
+def get_placeholder_naming_description():
+    return "Placeholders are ordered top-to-bottom, then left-to-right. The first element at the top is index 1."
+
 def write_json_mapping(mapping: Dict[str, List[str]], json_path: str):
     os.makedirs(os.path.dirname(json_path), exist_ok=True)
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(mapping, f, indent=2, ensure_ascii=False)
     logger.info(f"\nExported placeholder mapping to {json_path}")
 
-def log_description(mapping: Dict[str, List[str]]):
+def log_description(mapping: Dict[str, List[str]], slide_overviews, naming_desc):
     desc = []
-    desc.append("\n=== PRESENTATION PLACEHOLDER DESCRIPTION ===")
-    desc.append("Instructions:")
-    desc.append("1. For each slide, start with 'Slide X:' (e.g. Slide 2:).")
-    desc.append("2. Write the content for each placeholder as a new line, in order, directly after the slide heading.")
-    desc.append("3. Do not add extra labels, keys, or formatting. Do not add explanations, summaries, or section breaks.")
-    desc.append("4. Do not change the order or number of lines. Each line must match the placeholder order below.")
-    desc.append("5. Keep word counts within the W values (e.g. W5 = max 5 words).")
-    desc.append("")
-    desc.append("Example Format:")
-    desc.append("slide_2: Welcome All")
-    desc.append("• This is an example bullet with eight words")
-    desc.append("")
-    desc.append("   Follow this example STRICTLY")
-    desc.append("\nPlaceholder Requirements:")
+    desc.append("\n=== PRESENTATION OVERVIEW ===")
+    desc.append("Slide Structure:")
+    for ov in slide_overviews:
+        desc.append(f"  - {ov}")
+    desc.append("\nPlaceholder Ordering:")
+    desc.append(f"  - {naming_desc}")
+    desc.append("\n=== CONTENT INSTRUCTIONS ===")
+    desc.append("1. Follow EXACTLY the placeholder order below")
+    desc.append("2. Write one line per placeholder")
+    desc.append("3. Keep within word limits (W value)")
+    desc.append("4. Example:")
+    desc.append("   Slide 2: Objectives")
+    desc.append("   Understand key concepts")
+    desc.append("   • First bullet point")
+    desc.append("\n=== PLACEHOLDER LIST ===")
+    
     for slide_key in sorted(mapping.keys(), key=lambda x: int(x.split('_')[1])):
         slide_num = slide_key.split('_')[1]
         phs = mapping[slide_key]
-        if phs:
-            desc.append(f"\nSlide {slide_num}:" + phs[0])
-            for ph in phs[1:]:
-                desc.append(f"  {ph}")
-    desc.append("\n=============================================\n")
-    print('\n'.join(desc))
+        desc.append(f"\nSlide {slide_num}:")
+        for ph in phs:
+            desc.append(f"  {ph}")
+    
     return '\n'.join(desc)
 
-def write_description_to_file(mapping: Dict[str, List[str]], path: str):
-    desc = log_description(mapping)
+def write_description_to_file(mapping: Dict[str, List[str]], path: str, slide_overviews, naming_desc):
+    desc = log_description(mapping, slide_overviews, naming_desc)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(desc)
@@ -229,12 +259,16 @@ def main():
     success, placeholders, mapping = process_pptx(input_file, output_file)
 
     if success:
+        prs = Presentation(input_file)  # Open again for overviews
+        slide_overviews = [get_slide_overview(slide, idx) for idx, slide in enumerate(prs.slides)]
+        naming_desc = get_placeholder_naming_description()
+
         print("\nSuccessfully processed placeholders:")
         for ph in sorted(placeholders):
             print(f" - {ph}")
 
         write_json_mapping(mapping, "data/mapped-content.json")
-        write_description_to_file(mapping, "data/ai-prompt-template.txt")
+        write_description_to_file(mapping, "data/ai-prompt-template.txt", slide_overviews, naming_desc)
         sys.exit(0)
     else:
         print("\nProcessing completed with errors")

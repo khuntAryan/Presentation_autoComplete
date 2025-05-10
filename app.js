@@ -128,27 +128,23 @@ app.listen(port, () => {
 function parseUserContent(text) {
   const slides = text.split(/(?:^|\n)Slide\s+\d+:/gi).map(s => s.trim()).filter(Boolean);
   const result = {};
+  
   slides.forEach((slideText, idx) => {
     const lines = slideText.split('\n').map(l => l.trim()).filter(Boolean);
     const slideKey = `slide_${idx + 1}`;
-    result[slideKey] = {};
+    result[slideKey] = { bullets: [] };
 
-    let titleSet = false, subtitleSet = false, bullets = [], paragraph = [];
+    let titleSet = false;
     lines.forEach(line => {
       if (!titleSet) {
         result[slideKey].title = line;
         titleSet = true;
-      } else if (!subtitleSet && line && !/^[-•]/.test(line)) {
-        result[slideKey].subtitle = line;
-        subtitleSet = true;
-      } else if (/^[-•]/.test(line)) {
-        bullets.push(line.replace(/^[-•]\s*/, ''));
       } else {
-        paragraph.push(line);
+        // Treat all lines after title as bullets
+        result[slideKey].bullets.push(line.replace(/^[-•]\s*/, ''));
       }
     });
-    if (bullets.length) result[slideKey].bullets = bullets;
-    if (paragraph.length) result[slideKey].paragraph = paragraph.join(' ');
   });
+  
   return result;
 }

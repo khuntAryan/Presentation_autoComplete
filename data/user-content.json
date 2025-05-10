@@ -1,51 +1,98 @@
 {
   "slide_1": {
-    "title": "India Shines",
-    "subtitle": "Strong Roots"
+    "bullets": [
+      "Development",
+      "Project"
+    ],
+    "title": "Web"
   },
   "slide_2": {
-    "title": "Unity Always",
-    "subtitle": "Shared Culture",
-    "paragraph": "Common Dreams Mutual Respect Collective Progress"
+    "bullets": [
+      "Aryan Khunt",
+      "Raj Patel",
+      "Dev Joshi",
+      "Parth Shah",
+      "Nikhil Desai"
+    ],
+    "title": "Our Team"
   },
   "slide_3": {
-    "title": "Incredible",
-    "subtitle": "India blends ancient heritage and modern innovation, inspiring every generation",
-    "paragraph": "Our values and resilience shape the world with timeless wisdom and purpose"
+    "bullets": [
+      "Web development involves building websites and applications using technologies like HTML, CSS, and JavaScript. It is split into frontend (user interface) and backend (server-side logic). This project explores web tech stacks, modern frameworks, and full-stack development trends. It also covers responsive design, accessibility, and performance optimization in real-world scenarios."
+    ],
+    "title": "Introduction"
   },
   "slide_4": {
-    "title": "Diversity",
-    "subtitle": "Faiths",
-    "paragraph": "India embraces all beliefs, fostering unity through religious harmony Languages Each region speaks with cultural pride and grace"
+    "bullets": [
+      "Our project dives into how websites are designed, developed, and deployed using modern tools and best practices."
+    ],
+    "title": "Project Overview"
   },
   "slide_5": {
-    "title": "Values",
-    "subtitle": "Compassion, peace, and harmony guide Indian life always",
-    "paragraph": "Generations pass down truth, respect, and togetherness with care"
+    "bullets": [
+      "To learn about core web technologies",
+      "To build a responsive web app",
+      "To apply real-world deployment strategies"
+    ],
+    "title": "Objectives"
   },
   "slide_6": {
-    "title": "Progress",
-    "subtitle": "India thrives in space tech, digital growth, and youth-led innovation"
+    "bullets": [
+      "Team Meetings",
+      "Module Assignments",
+      "Each member handled frontend or backend tasks",
+      "We used Git for version control and VS Code for development"
+    ],
+    "title": "Methodology"
   },
   "slide_7": {
-    "title": "Glory",
-    "subtitle": "Historic forts, spiritual centers, and art reflect India's rich past",
-    "paragraph": "Global Leaders Indians lead in science, tech, and governance worldwide"
+    "bullets": [
+      "Planning",
+      "Designing",
+      "Coding",
+      "We planned the structure of our site",
+      "Designed using Figma and CSS frameworks",
+      "Implemented using React and Node.js"
+    ],
+    "title": "Process"
   },
   "slide_8": {
-    "title": "Strength"
+    "bullets": [
+      "The development process revealed how component-based design improves reusability and scalability in modern apps."
+    ],
+    "title": "Analysis"
   },
   "slide_9": {
-    "title": "People",
-    "subtitle": "Every Indian contributes with strength, diversity, and spirit, lifting the nation with unity and global excellence"
+    "bullets": [
+      "We tracked commit history",
+      "Monitored page speed metrics",
+      "Collected feedback using user surveys"
+    ],
+    "title": "Data"
   },
   "slide_10": {
-    "title": "Vision",
-    "subtitle": "New India",
-    "paragraph": "Empowered youth build sustainable, inclusive dreams Future Path Growth guided by innovation and education Leading Ahead India shapes tomorrow with bold ambition"
+    "bullets": [
+      "Web dev teaches problem-solving and design",
+      "Teamwork improved our efficiency",
+      "We built a deployable full-stack web app"
+    ],
+    "title": "Conclusion"
   },
   "slide_11": {
-    "title": "Jai Hind",
-    "subtitle": "Bharat First"
+    "bullets": [],
+    "title": "Documentation"
+  },
+  "slide_12": {
+    "bullets": [
+      "Learn DevOps and CI/CD pipelines",
+      "Try building with Next.js and Tailwind CSS"
+    ],
+    "title": "Recommendation"
+  },
+  "slide_13": {
+    "bullets": [
+      "SRM"
+    ],
+    "title": "Thank You"
   }
 }
