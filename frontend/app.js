@@ -6,6 +6,44 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
   document.getElementById('uploadStatus').textContent = message;
 });
 
+document.getElementById('processBtn').addEventListener('click', async () => {
+  document.getElementById('processStatus').textContent = "Processing, please wait...";
+  document.getElementById('promptContainer').classList.add('hidden');
+  
+  const res = await fetch('/process-pptx', { method: 'POST' });
+  const message = await res.text();
+  document.getElementById('processStatus').textContent = message;
+  
+  if (res.ok) {
+    // Show AI prompt after successful processing
+    try {
+      const promptRes = await fetch('/get-ai-prompt');
+      if (promptRes.ok) {
+        const promptText = await promptRes.text();
+        document.getElementById('promptContent').textContent = promptText;
+        document.getElementById('promptContainer').classList.remove('hidden');
+      }
+    } catch (err) {
+      console.error("Error fetching prompt:", err);
+    }
+  }
+});
+
+// Copy prompt to clipboard
+document.getElementById('copyPromptBtn').addEventListener('click', async () => {
+  const promptText = document.getElementById('promptContent').textContent;
+  try {
+    await navigator.clipboard.writeText(promptText);
+    const feedback = document.getElementById('copyFeedback');
+    feedback.style.display = 'inline';
+    setTimeout(() => {
+      feedback.style.display = 'none';
+    }, 2000);
+  } catch (err) {
+    console.error("Error copying to clipboard:", err);
+  }
+});
+
 document.getElementById('contentForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const bulkContent = document.getElementById('bulkContent').value;
@@ -16,12 +54,6 @@ document.getElementById('contentForm').addEventListener('submit', async (e) => {
   });
   const message = await res.text();
   document.getElementById('contentStatus').textContent = message;
-});
-
-document.getElementById('processBtn').addEventListener('click', async () => {
-  const res = await fetch('/process-pptx', { method: 'POST' });
-  const message = await res.text();
-  document.getElementById('processStatus').textContent = message;
 });
 
 document.getElementById('generateBtn').addEventListener('click', async () => {

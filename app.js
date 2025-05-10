@@ -13,6 +13,7 @@ const inputPath = path.join(__dirname, 'python-preprocessor/templates/sample2.pp
 const outputPath = path.join(__dirname, 'python-preprocessor/output/preprocessed_sample.pptx');
 const userContentPath = path.join(__dirname, 'data/user-content.json');
 const mappedContentPath = path.join(__dirname, 'data/mapped-content.json');
+const aiPromptPath = path.join(__dirname, 'data/ai-prompt-template.txt');
 const generatePptxScript = path.join(__dirname, 'generate-pptx.js');
 const finalPptxPath = path.join(__dirname, 'output', 'final-presentation.pptx');
 
@@ -39,6 +40,33 @@ app.post('/upload-pptx', upload.single('pptx'), (req, res) => {
   });
 });
 
+app.post('/process-pptx', (req, res) => {
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error("❌ Python error:", error);
+      return res.status(500).send('Error processing PPTX file.');
+    }
+    console.log("✅ Python stdout:", stdout);
+    console.error("⚠️ Python stderr:", stderr);
+    res.send('PPTX file processed successfully! AI prompt is ready below.');
+  });
+});
+
+// New endpoint to get AI prompt
+app.get('/get-ai-prompt', (req, res) => {
+  if (fs.existsSync(aiPromptPath)) {
+    fs.readFile(aiPromptPath, 'utf8', (err, data) => {
+      if (err) {
+        console.error('❌ Error reading AI prompt:', err);
+        return res.status(500).send('Error reading AI prompt');
+      }
+      res.send(data);
+    });
+  } else {
+    res.status(404).send('AI prompt not found. Process your PPTX first.');
+  }
+});
+
 app.post('/save-user-content', (req, res) => {
   const { bulkContent } = req.body;
   if (!bulkContent) return res.status(400).send('No content provided.');
@@ -54,18 +82,6 @@ app.post('/save-user-content', (req, res) => {
   }
 });
 
-app.post('/process-pptx', (req, res) => {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error("❌ Python error:", error);
-      return res.status(500).send('Error processing PPTX file.');
-    }
-    console.log("✅ Python stdout:", stdout);
-    console.error("⚠️ Python stderr:", stderr);
-    res.send('PPTX file processed successfully!');
-  });
-});
-
 app.post('/generate-pptx', (req, res) => {
   exec(`node services/mapContent.js && node generate-pptx.js`, (error, stdout, stderr) => {
     if (error) {
@@ -78,12 +94,12 @@ app.post('/generate-pptx', (req, res) => {
   });
 });
 
-// New: Check if PPTX file exists
+// Check if PPTX file exists
 app.get('/check-file', (req, res) => {
   res.json({ exists: fs.existsSync(finalPptxPath) });
 });
 
-// New: Preview PPTX (inline)
+// Preview PPTX (inline)
 app.get('/preview-pptx', (req, res) => {
   if (fs.existsSync(finalPptxPath)) {
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
@@ -94,7 +110,7 @@ app.get('/preview-pptx', (req, res) => {
   }
 });
 
-// New: Download PPTX (attachment)
+// Download PPTX (attachment)
 app.get('/download-pptx', (req, res) => {
   if (fs.existsSync(finalPptxPath)) {
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');

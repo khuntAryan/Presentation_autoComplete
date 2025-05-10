@@ -20,7 +20,7 @@
     .action-buttons {
       margin-top: 15px;
     }
-    .action-buttons a {
+    .action-buttons a, .action-buttons button {
       display: inline-block;
       margin-right: 10px;
       padding: 8px 16px;
@@ -28,9 +28,34 @@
       color: white;
       text-decoration: none;
       border-radius: 4px;
+      border: none;
+      cursor: pointer;
     }
-    .action-buttons a:hover {
+    .action-buttons a:hover, .action-buttons button:hover {
       background-color: #45a049;
+    }
+    .prompt-container {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      background-color: #f5f5f5;
+    }
+    .prompt-content {
+      height: 300px;
+      overflow-y: auto;
+      background-color: white;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    .copy-feedback {
+      color: #4CAF50;
+      margin-left: 10px;
+      display: none;
     }
   </style>
 </head>
@@ -43,6 +68,21 @@
   <div id="uploadStatus"></div>
   <hr />
 
+  <button id="processBtn">Process PPTX</button>
+  <div id="processStatus"></div>
+  
+  <!-- AI Prompt Section (Initially Hidden) -->
+  <div id="promptContainer" class="prompt-container hidden">
+    <h3>AI Prompt Template</h3>
+    <p>Use this prompt with ChatGPT or similar AI to generate content for your presentation:</p>
+    <div id="promptContent" class="prompt-content"></div>
+    <div class="action-buttons">
+      <button id="copyPromptBtn">Copy to Clipboard</button>
+      <span id="copyFeedback" class="copy-feedback">✓ Copied!</span>
+    </div>
+  </div>
+  <hr />
+
   <h2>Paste All Slide Content Below</h2>
   <form id="contentForm">
     <textarea id="bulkContent" rows="25" style="width:98%;" placeholder="Paste all your content here..."></textarea><br>
@@ -51,14 +91,10 @@
   <div id="contentStatus"></div>
   <hr />
 
-  <button id="processBtn">Process PPTX</button>
-  <div id="processStatus"></div>
-
   <button id="generateBtn">Generate Final PPTX</button>
   <div id="generateStatus"></div>
-
   
-<div id="previewContainer" class="hidden" style="margin-top:20px;">
+  <div id="previewContainer" class="hidden" style="margin-top:20px;">
     <h3>Your Presentation</h3>
     <div>
       <img src="https://img.icons8.com/color/96/000000/microsoft-powerpoint-2019--v1.png" alt="PowerPoint Icon" style="width:48px;height:48px;vertical-align:middle;">
@@ -71,5 +107,5 @@
   </div>
   
   <script src="./app.js"></script>
-  </body>
-  </html>
+</body>
+</html>

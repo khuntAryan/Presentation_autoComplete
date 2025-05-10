@@ -1,52 +1,50 @@
 {
   "slide_1": {
-    "title": "Title Slide",
-    "subtitle": "Title: Life on Land",
-    "paragraph": "Subtitle: Sustainable Management of Forests and Biodiversity Presented by: [Your Name or Team Name] Image suggestion: A lush forest or a landscape with diverse flora and fauna"
+    "title": "Title: Importance",
+    "subtitle": "Subtitle: Of Having Friends"
   },
   "slide_2": {
-    "title": "Goal of Life on Land (SDG 15)",
-    "subtitle": "SDG 15 seeks to protect, restore, and promote the sustainable use of terrestrial ecosystems.",
-    "paragraph": "It includes managing forests, combating desertification, halting biodiversity loss, and protecting wildlife."
+    "title": "Header: Friendship",
+    "subtitle": "Header: Life’s Strong Bond",
+    "paragraph": "Content: Builds trust Content: Brings joy Content: Love Content: Reduces stress Content: Improves health Content: Fun"
   },
   "slide_3": {
-    "title": "Forests – Earth’s Lungs",
-    "subtitle": "Forests store more than 80% of the world's terrestrial species.",
-    "paragraph": "They absorb roughly 2.6 billion tonnes of carbon dioxide each year. Home to over 1.6 billion people who depend on them for food, shelter, and livelihoods."
+    "title": "Header: What Is",
+    "subtitle": "Header: The Meaning of Friendship",
+    "paragraph": "Content: Friendship is a special bond between individuals built on trust, love, and mutual respect. True friends support us in good and bad times, making life more enjoyable and meaningful."
   },
   "slide_4": {
-    "title": "Global Land Degradation",
-    "subtitle": "Over 2 billion hectares of land are currently degraded globally.",
-    "paragraph": "About 75% of Earth’s land surface has been significantly altered by human activity. Soil erosion, desertification, and overgrazing reduce agricultural productivity."
+    "title": "Header: Key Role",
+    "subtitle": "Header: In Life",
+    "paragraph": "Bullet: Emotional support Bullet: Mental strength Bullet: Shared memories Content: Helps growth Content: Encourages learning Content: Boosts confidence"
   },
   "slide_5": {
-    "title": "Wildlife Under Pressure",
-    "subtitle": "Over 40,000 species are listed as threatened on the IUCN Red List.",
-    "paragraph": "Species like the Sumatran orangutan and Black Rhino face extinction due to habitat loss and poaching. Illegal wildlife trade is worth over $20 billion annually."
+    "title": "Header: Types Of",
+    "subtitle": "Header: Friendship",
+    "paragraph": "Content: Childhood friends Content: School friends Content: Work friends"
   },
   "slide_6": {
-    "title": "Desertification – A Silent Threat",
-    "subtitle": "Affects over 1 billion people worldwide.",
-    "paragraph": "Causes include overcultivation, deforestation, and poor irrigation practices. Leads to food insecurity and migration."
+    "title": "Header: True Friends",
+    "subtitle": "Header: Real Support",
+    "paragraph": "Bullet: Always there for you Content: A true friend stands by your side during challenges and celebrates your victories without jealousy. Content: They listen without judging and offer honest advice when needed. Bullet: Trust and loyalty"
   },
   "slide_7": {
-    "title": "Case Study – The Amazon Rainforest",
-    "subtitle": "Known as the “lungs of the Earth”, it produces 20% of the world's oxygen.",
-    "paragraph": "Facing rapid deforestation: over 10,000 sq km lost per year. Critical to global biodiversity and carbon balance."
+    "title": "Header: Friendship Value",
+    "subtitle": "Header: In Society",
+    "paragraph": "Content: Friendship promotes unity, reduces conflicts, and builds strong, supportive communities."
   },
   "slide_8": {
-    "title": "Solutions and Strategies",
-    "subtitle": "Agroforestry and sustainable agriculture",
-    "paragraph": "Protected areas and national parks Restoration of degraded land through rewilding and planting native species International cooperation (e.g., UNCCD, REDD+)"
+    "title": "Header: Building",
+    "subtitle": "Header: Friendships",
+    "paragraph": "Content: Be kind Content: Start by listening, showing respect, and offering genuine help without expectations. Content: Spend time, share experiences, and be trustworthy."
   },
   "slide_9": {
-    "title": "How You Can Help",
-    "subtitle": "Support conservation NGOs and eco-certified products",
-    "paragraph": "Reduce meat consumption to lower land use pressure Volunteer for local clean-up or planting events Use digital documents to save paper"
+    "title": "Header: Maintaining",
+    "subtitle": "Header: Friendships",
+    "paragraph": "Content: Stay connected Content: Communicate regularly, forgive mistakes, and show appreciation. Content: Support each other’s goals and be dependable."
   },
   "slide_10": {
-    "title": "Final Thought",
-    "subtitle": "“If we lose our forests and biodiversity, we lose our future.”",
-    "paragraph": "Let’s be the generation that protected life on land — not the one that lost it."
+    "title": "Content: Friends Make Life Better",
+    "subtitle": "Bullet: Treasure and nurture true friendships"
   }
 }
