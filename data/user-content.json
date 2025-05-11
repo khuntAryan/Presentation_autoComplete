@@ -1,70 +1,83 @@
 {
   "slide_1": {
     "bullets": [
-      "Submitted by Group B5"
+      "A glimpse into the past"
     ],
     "title": "History Project"
   },
   "slide_2": {
     "bullets": [
-      "Alfredo Tores, Avery Davis, Claudia Alves, Donna Stroupe, Estelle Darcy"
+      "Alice - Research Lead",
+      "Bob - Data Analyst",
+      "Cara - Content Editor",
+      "Dave - Visual Designer",
+      "Eve - Presenter"
     ],
-    "title": "MEMBERS"
+    "title": "Our Team"
   },
   "slide_3": {
     "bullets": [
-      "This project examines the historical developments of the 19th century, focusing on key revolutions, industrial growth, and social transformations. It traces the impact of these events on modern governance, economics, and cultural norms to highlight their lasting influence."
+      "The Industrial Revolution began in the late 18th century and dramatically altered the course of history by shifting societies from agrarian economies to industrial powerhouses. This project delves into how this shift impacted various aspects of human life.",
+      "We explore the causes behind the revolution, such as technological innovation and availability of natural resources, and examine the consequences it had on labor, urbanization, and global trade dynamics."
     ],
     "title": "Background"
   },
   "slide_4": {
     "bullets": [
-      "The aim is to investigate critical moments from the 1800s, such as the Industrial Revolution, reform movements, and global shifts in power. We studied their long-term consequences through visual data and textual analysis.",
-      "Our research was structured using primary and secondary sources, with emphasis on thematic presentation and chronological relevance to create an insightful historical narrative."
+      "Harsh factory conditions and child labor were rampant.",
+      "Pollution rose sharply due to unregulated emissions, and social inequality increased as factory owners grew richer while workers remained underpaid and overworked.",
+      "Rural communities declined as cities expanded, and skilled labor saw a drop in demand due to machine automation."
     ],
-    "title": "Project Overview"
+    "title": "Problems"
   },
   "slide_5": {
     "bullets": [
-      "To develop a comprehensive understanding of pivotal 19th-century events, and analyze their influence on modern institutions, technology, and societies.",
-      "To strengthen analytical skills by engaging with authentic historical records, formulating arguments, and drawing meaningful comparisons with present-day systems."
+      "Understand the historical impact of the Industrial Revolution.",
+      "Analyze social and economic transformations caused by mechanization, and explore the shift from rural to urban societies during this era.",
+      "Provide an insight into lessons learned from history that influence current industrial and technological trends."
     ],
-    "title": "Project Goals"
+    "title": "Goals"
   },
   "slide_6": {
     "bullets": [
-      "Identify the core causes and effects of major historical events during the 19th century, including wars, reforms, and revolutions.",
-      "Use historical documents and credible references to explore different perspectives and interpretations of the same events.",
-      "Present the findings using a structured format that includes visuals, data charts, and citations, enhancing both clarity and presentation quality."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non elit mauris. Cras euismod, metus ac finibus finibus, felis dui suscipit purus, a maximus leo ligula at dolor. Morbi et malesuada purus. Phasellus a lacus sit amet urna tempor sollicitudin. Cras pretium tempor elit blandit egestas. Donec sed dignissim augue. Suspendisse ac vulputate leo. Cras aliquet nunc ac velit cursus viverra. In hac habitasse platea dictumst. Nam tortor urna, semper ac nulla id, porttitor semper felis. Phasellus blandit eros viverra, ultricies nibh nec, viverra ipsum. Ut nec gravida massa, eu convallis est."
     ],
-    "title": "Objectives"
+    "title": "Lorem"
   },
   "slide_7": {
     "bullets": [
-      "Our dataset includes census records, political maps, reform laws, and industrial statistics. The material was categorized based on time period, geography, and impact. We utilized comparative tables, event timelines, and thematic charts to interpret the significance of our findings and ensure accuracy in historical context."
+      "Statistical records show exponential growth in manufacturing output between 1760 and 1840. Population densities increased in urban zones while rural populations declined. Employment shifted from agriculture to industry, with female and child labor contributing significantly."
     ],
     "title": "Data Analysis"
   },
   "slide_8": {
     "bullets": [
-      "The project revealed how 19th-century transformations—especially the Industrial Revolution—shaped global dynamics. The role of technology, shifts in power structures, and education reform were clearly visible, indicating a transition into modernity and sustained global interdependence."
+      "Mass production became feasible",
+      "Global trade expanded rapidly, fueling colonization and economic dominance",
+      "Education and reforms gained traction to improve worker conditions and reduce inequality",
+      "Technological advancements like the steam engine revolutionized transport and commerce"
     ],
     "title": "Result"
   },
   "slide_9": {
     "bullets": [
-      "We found the project highly insightful, especially while connecting past events to present situations. Research challenges included identifying biases in historical records, but cross-referencing sources improved reliability. Our discussion also raised new questions for future exploration."
+      "The Industrial Revolution was a turning point",
+      "It reshaped economies and societies across continents, fostering innovation but also causing deep social challenges. Understanding this transformation provides valuable context for today’s digital and industrial evolution."
     ],
-    "title": "Discussion"
+    "title": "Conclusion"
   },
   "slide_10": {
     "bullets": [
-      "All references, datasets, and historical materials were documented from libraries, archives, and online educational platforms. Our methodology included citation management tools, ensuring all sources were verified and appropriately acknowledged."
+      "References include academic journals, historical databases, and museum archives providing credible information about the Industrial Revolution’s timeline, effects, and long-term implications."
     ],
     "title": "Documentation"
   },
   "slide_11": {
     "bullets": [],
-    "title": "Thank You"
+    "title": "Any questions or thoughts you’d like to share?"
+  },
+  "slide_12": {
+    "bullets": [],
+    "title": "Thank you"
   }
 }

@@ -5,27 +5,25 @@
   ],
   "slide_2": [
     "{{HEADER_1_SLIDE_2_C8}}",
-    "{{BULLET_2_SLIDE_2_C67}}"
+    "{{BULLET_2_SLIDE_2_C52}}"
   ],
   "slide_3": [
     "{{HEADER_1_SLIDE_3_C10}}",
     "{{BULLET_2_SLIDE_3_C603}}"
   ],
   "slide_4": [
-    "{{HEADER_1_SLIDE_4_C16}}",
+    "{{HEADER_1_SLIDE_4_C8}}",
     "{{CONTENT_2_SLIDE_4_C326}}",
     "{{CONTENT_3_SLIDE_4_C326}}"
   ],
   "slide_5": [
-    "{{HEADER_1_SLIDE_5_C13}}",
+    "{{HEADER_1_SLIDE_5_C5}}",
     "{{CONTENT_2_SLIDE_5_C326}}",
     "{{CONTENT_3_SLIDE_5_C326}}"
   ],
   "slide_6": [
-    "{{HEADER_1_SLIDE_6_C10}}",
-    "{{CONTENT_2_SLIDE_6_C326}}",
-    "{{CONTENT_3_SLIDE_6_C326}}",
-    "{{CONTENT_4_SLIDE_6_C326}}"
+    "{{HEADER_1_SLIDE_6_C6}}",
+    "{{BULLET_2_SLIDE_6_C603}}"
   ],
   "slide_7": [
     "{{HEADER_1_SLIDE_7_C13}}",
@@ -33,7 +31,9 @@
   ],
   "slide_8": [
     "{{HEADER_1_SLIDE_8_C6}}",
-    "{{BULLET_2_SLIDE_8_C603}}"
+    "{{CONTENT_2_SLIDE_8_C326}}",
+    "{{CONTENT_3_SLIDE_8_C326}}",
+    "{{CONTENT_4_SLIDE_8_C326}}"
   ],
   "slide_9": [
     "{{HEADER_1_SLIDE_9_C10}}",
@@ -44,6 +44,9 @@
     "{{CONTENT_2_SLIDE_10_C326}}"
   ],
   "slide_11": [
-    "{{CONTENT_1_SLIDE_11_C9}}"
+    "{{CONTENT_1_SLIDE_11_C25}}"
+  ],
+  "slide_12": [
+    "{{CONTENT_1_SLIDE_12_C9}}"
   ]
 }

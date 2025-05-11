@@ -5,194 +5,229 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     html, body {
-      height: 100%;
-      margin: 0;
-      background: #111;
-      color: #fff;
-      font-family: 'Segoe UI', Arial, sans-serif;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 32px auto 0 auto;
-      padding: 0 0 24px 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    .site-header {
-      width: 100%;
-      text-align: center;
-      font-size: 2.6rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      padding: 36px 0 22px 0;
-      background: #181818;
-      border-radius: 18px 18px 0 0;
-      margin-bottom: 24px;
-      border-bottom: 2px solid #fff2;
-    }
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1.2fr;
-      gap: 36px;
-      margin-bottom: 24px;
-    }
-    .uploading-space {
-      background: #181820;
-      border-radius: 14px;
-      padding: 36px 24px 28px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 320px;
-      box-shadow: 0 2px 16px 0 rgba(255,255,255,0.02);
-    }
-    .uploading-space label {
-      font-size: 1.3rem;
-      margin-bottom: 18px;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-    .uploading-space input[type="file"] {
-      margin-top: 8px;
-      color: #fff;
-      background: #222;
-      border: 1px solid #fff2;
-      border-radius: 7px;
-      font-size: 1rem;
-      padding: 8px;
-      width: 100%;
-      max-width: 320px;
-    }
-    .upload-status {
-      margin-top: 16px;
-      font-size: 1rem;
-      color: #fff;
-    }
-    .right-block {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    .user-input, .prompt-box {
-      background: #14141a;
-      border-radius: 10px;
-      padding: 18px 16px;
-      margin-bottom: 0;
-      box-shadow: 0 1px 4px 0 rgba(255,255,255,0.03);
-    }
-    .user-input label, .prompt-box label {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .user-input textarea {
-      width: 100%;
-      min-height: 80px;
-      border-radius: 7px;
-      border: none;
-      padding: 10px;
-      font-size: 1rem;
-      background: #181820;
-      color: #fff;
-      resize: vertical;
-      margin-top: 8px;
-    }
-    .prompt-content {
-      background: #181820;
-      color: #fff;
-      border-radius: 6px;
-      padding: 12px;
-      font-family: monospace;
-      font-size: 1rem;
-      margin-bottom: 10px;
-      white-space: pre-wrap;
-      max-height: 140px;
-      overflow-y: auto;
-    }
-    .copy-btn, .generate-btn {
-      background: #fff;
-      color: #101014;
-      border: none;
-      border-radius: 7px;
-      padding: 10px 18px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 5px;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      transition: background 0.2s, color 0.2s;
-    }
-    .copy-btn:hover, .generate-btn:hover {
-      background: #fff2;
-      color: #fff;
-    }
-    .generate-btn {
-      width: 100%;
-      margin-top: 10px;
-      margin-bottom: 0;
-    }
-    .dynamic-loader {
-      width: 100%;
-      height: 7px;
-      background: #fff2;
-      margin: 0 0 22px 0;
-      border-radius: 4px;
-    }
-    .info-box {
-      width: 100%;
-      background: #181820;
-      border-radius: 12px;
-      padding: 22px 24px;
-      font-size: 1.1rem;
-      color: #fff;
-      margin-bottom: 24px;
-      box-shadow: 0 1px 4px 0 rgba(255,255,255,0.03);
-    }
-    .info-box ul {
-      margin: 10px 0 0 18px;
-      padding: 0;
-    }
-    .preview-container {
-      margin-top: 20px;
-      padding: 18px 15px 15px 15px;
-      border: 1px solid #fff2;
-      border-radius: 8px;
-      background: #181820;
-      text-align: left;
-      display: none;
-    }
-    .preview-container.visible {
-      display: block;
-    }
-    .preview-container img {
-      width: 48px;
-      height: 48px;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-    .preview-container a {
-      color: #5d8aff;
-      font-weight: 500;
-      text-decoration: underline;
-      margin-right: 10px;
-    }
-    .preview-container a:hover {
-      color: #fff;
-    }
-    #copyFeedback {
-      display: none;
-      color: #fff;
-      margin-left: 10px;
-    }
-    @media (max-width: 900px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-    }
+  height: 100%;
+  margin: 0;
+  background: #0e0e0e;
+  color: #f9f9f9;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 32px auto 0 auto;
+  padding: 0 0 24px 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.site-header {
+  width: 100%;
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  padding: 40px 0 25px 0;
+  background: linear-gradient(90deg, #1a1a1a, #222);
+  border-radius: 18px 18px 0 0;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #2a2a2a;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr;
+  gap: 36px;
+  margin-bottom: 24px;
+}
+
+.uploading-space {
+  background: #1b1b25;
+  border-radius: 14px;
+  padding: 36px 24px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 320px;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.03);
+}
+
+.uploading-space label {
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.uploading-space input[type="file"] {
+  margin-top: 8px;
+  color: #f9f9f9;
+  background: #202025;
+  border: 1px solid #333;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 10px;
+  width: 100%;
+  max-width: 320px;
+  transition: border 0.3s;
+}
+.uploading-space input[type="file"]:hover {
+  border-color: #5d8aff;
+}
+
+.upload-status {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.right-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-input, .prompt-box {
+  background: #17171e;
+  border-radius: 12px;
+  padding: 20px 18px;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.02);
+}
+
+.user-input label, .prompt-box label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.user-input textarea {
+  width: 100%;
+  min-height: 100px;
+  border-radius: 8px;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  background: #1f1f27;
+  color: #fff;
+  resize: vertical;
+}
+
+.prompt-content {
+  background: #1f1f27;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: monospace;
+  font-size: 1rem;
+  max-height: 160px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+}
+
+.copy-btn, .generate-btn {
+  background: linear-gradient(90deg, #5d8aff, #4b6cff);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.copy-btn:hover, .generate-btn:hover {
+  background: linear-gradient(90deg, #4b6cff, #3c58d3);
+  transform: scale(1.02);
+}
+
+.generate-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#copyFeedback {
+  display: none;
+  color: #9f9;
+  margin-left: 10px;
+  font-size: 0.95rem;
+}
+
+.dynamic-loader {
+  width: 100%;
+  height: 6px;
+  background: #282828;
+  margin: 0 0 24px 0;
+  border-radius: 4px;
+}
+
+.info-box {
+  width: 100%;
+  background: #1a1a22;
+  border-radius: 12px;
+  padding: 24px;
+  font-size: 1.1rem;
+  color: #ddd;
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.03);
+}
+
+.info-box b {
+  display: block;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.info-box ul {
+  margin: 10px 0 0 18px;
+  padding: 0;
+}
+
+.preview-container {
+  margin-top: 20px;
+  padding: 20px 18px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: #1f1f28;
+  text-align: left;
+  display: none;
+}
+
+.preview-container.visible {
+  display: block;
+}
+
+.preview-container img {
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.preview-container a {
+  color: #5d8aff;
+  font-weight: 500;
+  text-decoration: underline;
+  margin-right: 12px;
+}
+
+.preview-container a:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
   </style>
 </head>
 <body>
