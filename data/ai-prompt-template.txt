@@ -2,19 +2,22 @@
 === PRESENTATION ANALYSIS ===
 Slide Structure (with content analysis):
   - Slide 1: History Project [Para 1: 15 chars | Para 2: 19 chars]
-  - Slide 2: Our Team [Para 1: 8 chars | Para 2: 10 chars | Para 3: 13 chars | Para 4: 13 chars | Para 5: 13 chars]
+  - Slide 2: Alfredo Tores
+Avery Davis
+Claudia Alves
+Donna Stroupe
+Estelle Darcy [Para 1: 13 chars | Para 2: 11 chars | Para 3: 13 chars | Para 4: 13 chars | Para 5: 13 chars | Para 6: 8 chars]
   - Slide 3: Background [Para 1: 10 chars | Para 2: 326 chars | Para 3: 274 chars]
-  - Slide 4: Problems [Para 1: 8 chars | Para 2: 326 chars | Para 3: 326 chars]
-  - Slide 5: Goals [Para 1: 5 chars | Para 2: 326 chars | Para 3: 326 chars]
-  - Slide 6: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non elit mauris. Cras euismod, metus ac finibus finibus, felis dui suscipit purus, a maximus leo ligula at dolor. Morbi et malesuada purus. Phasellus a lacus sit amet urna tempor sollicitudin. Cras pretium tempor elit blandit egestas. Donec sed dignissim augue. 
-
-Suspendisse ac vulputate leo. Cras aliquet nunc ac velit cursus viverra. In hac habitasse platea dictumst. Nam tortor urna, semper ac nulla id, porttitor semper felis. Phasellus blandit eros viverra, ultricies nibh nec, viverra ipsum. Ut nec gravida massa, eu convallis est. [Para 1: 326 chars | Para 2: 274 chars | Para 3: 6 chars]
+  - Slide 4: Project Overview [Para 1: 16 chars | Para 2: 326 chars | Para 3: 326 chars]
+  - Slide 5: Project Goals [Para 1: 13 chars | Para 2: 326 chars | Para 3: 326 chars]
+  - Slide 6: Objectives [Para 1: 10 chars | Para 2: 326 chars | Para 3: 326 chars | Para 4: 326 chars]
   - Slide 7: Data Analysis [Para 1: 13 chars | Para 2: 326 chars | Para 3: 274 chars]
-  - Slide 8: Result [Para 1: 6 chars | Para 2: 326 chars | Para 3: 326 chars | Para 4: 326 chars]
-  - Slide 9: Conclusion [Para 1: 10 chars | Para 2: 326 chars | Para 3: 274 chars]
+  - Slide 8: Result [Para 1: 6 chars | Para 2: 326 chars | Para 3: 274 chars]
+  - Slide 9: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non elit mauris. Cras euismod, metus ac finibus finibus, felis dui suscipit purus, a maximus leo ligula at dolor. Morbi et malesuada purus. Phasellus a lacus sit amet urna tempor sollicitudin. Cras pretium tempor elit blandit egestas. Donec sed dignissim augue. 
+
+Suspendisse ac vulputate leo. Cras aliquet nunc ac velit cursus viverra. In hac habitasse platea dictumst. Nam tortor urna, semper ac nulla id, porttitor semper felis. Phasellus blandit eros viverra, ultricies nibh nec, viverra ipsum. Ut nec gravida massa, eu convallis est. [Para 1: 326 chars | Para 2: 274 chars | Para 3: 10 chars]
   - Slide 10: Documentation [Para 1: 13 chars | Para 2: 326 chars]
-  - Slide 11: Questions and Discussions [Para 1: 25 chars]
-  - Slide 12: Thank You [Para 1: 9 chars]
+  - Slide 11: Thank You [Para 1: 9 chars]
 
 Key:
   Para: Paragraph character count
@@ -25,10 +28,12 @@ Key:
 1. Follow EXACTLY the placeholder order below
 2. Write one line per placeholder
 3. Keep within character limits (C value)
+3.1 give the content in text format only
 4. Example:
    Slide 2: Objectives
-   {{CONTENT_1_SLIDE_2_C150} (max 150 characters)
-   {{BULLET_2_SLIDE_2_C50} (max 50 characters)
+   this is the content of the first placeholder (max 50 characters)
+   this is the content of the second placeholder (max 100 characters)
+   and also give the content in text format
 
 === PLACEHOLDER LIST ===
 
@@ -38,25 +43,27 @@ Slide 1:
 
 Slide 2:
   {{HEADER_1_SLIDE_2_C8}}
-  {{BULLET_2_SLIDE_2_C52}}
+  {{BULLET_2_SLIDE_2_C67}}
 
 Slide 3:
   {{HEADER_1_SLIDE_3_C10}}
   {{BULLET_2_SLIDE_3_C603}}
 
 Slide 4:
-  {{HEADER_1_SLIDE_4_C8}}
+  {{HEADER_1_SLIDE_4_C16}}
   {{CONTENT_2_SLIDE_4_C326}}
   {{CONTENT_3_SLIDE_4_C326}}
 
 Slide 5:
-  {{HEADER_1_SLIDE_5_C5}}
+  {{HEADER_1_SLIDE_5_C13}}
   {{CONTENT_2_SLIDE_5_C326}}
   {{CONTENT_3_SLIDE_5_C326}}
 
 Slide 6:
-  {{HEADER_1_SLIDE_6_C6}}
-  {{BULLET_2_SLIDE_6_C603}}
+  {{HEADER_1_SLIDE_6_C10}}
+  {{CONTENT_2_SLIDE_6_C326}}
+  {{CONTENT_3_SLIDE_6_C326}}
+  {{CONTENT_4_SLIDE_6_C326}}
 
 Slide 7:
   {{HEADER_1_SLIDE_7_C13}}
@@ -64,9 +71,7 @@ Slide 7:
 
 Slide 8:
   {{HEADER_1_SLIDE_8_C6}}
-  {{CONTENT_2_SLIDE_8_C326}}
-  {{CONTENT_3_SLIDE_8_C326}}
-  {{CONTENT_4_SLIDE_8_C326}}
+  {{BULLET_2_SLIDE_8_C603}}
 
 Slide 9:
   {{HEADER_1_SLIDE_9_C10}}
@@ -77,7 +82,4 @@ Slide 10:
   {{CONTENT_2_SLIDE_10_C326}}
 
 Slide 11:
-  {{CONTENT_1_SLIDE_11_C25}}
-
-Slide 12:
-  {{CONTENT_1_SLIDE_12_C9}}
+  {{CONTENT_1_SLIDE_11_C9}}
