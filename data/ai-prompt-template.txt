@@ -1,22 +1,25 @@
 
-=== PRESENTATION OVERVIEW ===
-Slide Structure:
-  - Slide 1: Content (History Project)
-  - Slide 2: Team (Our Team)
-  - Slide 3: Content (Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel odio vitae lorem elementum ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer ultrices tempus sodales. Donec tincidunt erat vel egestas faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque dignissim aliquet ligula in vulputate. Praesent rhoncus fringilla erat, a porta mauris vestibulum ac. Proin mauris urna, semper sed lacinia vitae, semper vel arcu. Praesent rutrum odio velit, eu vulputate nunc scelerisque et.)
-  - Slide 4: Content (Project Overview)
-  - Slide 5: Content (Objectives)
-  - Slide 6: Content (Methodology)
-  - Slide 7: Content (Process)
-  - Slide 8: Content (Analysis)
-  - Slide 9: Content (Data)
-  - Slide 10: Conclusion (Conclusion)
-  - Slide 11: Content (Documentation)
-  - Slide 12: Content (Recommendation)
-  - Slide 13: Content (Thank You)
+=== PRESENTATION ANALYSIS ===
+Slide Structure (with content analysis):
+  - Slide 1: History Project [Para: 6w]
+  - Slide 2: Our Team [Para: 10w]
+  - Slide 3: Background [Para: 93w]
+  - Slide 4: Problems [Para: 101w]
+  - Slide 5: Goals [Para: 101w]
+  - Slide 6: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non elit mauris. Cras euismod, metus ac finibus finibus, felis dui suscipit purus, a maximus leo ligula at dolor. Morbi et malesuada purus. Phasellus a lacus sit amet urna tempor sollicitudin. Cras pretium tempor elit blandit egestas. Donec sed dignissim augue. 
 
-Placeholder Ordering:
-  - Placeholders are ordered top-to-bottom, then left-to-right. The first element at the top is index 1.
+Suspendisse ac vulputate leo. Cras aliquet nunc ac velit cursus viverra. In hac habitasse platea dictumst. Nam tortor urna, semper ac nulla id, porttitor semper felis. Phasellus blandit eros viverra, ultricies nibh nec, viverra ipsum. Ut nec gravida massa, eu convallis est. [Para: 93w]
+  - Slide 7: Data Analysis [Para: 94w]
+  - Slide 8: Result [Para: 151w]
+  - Slide 9: Conclusion [Para: 93w]
+  - Slide 10: Documentation [Para: 51w]
+  - Slide 11: Questions and Discussions [Para: 3w]
+  - Slide 12: Thank You [Para: 2w]
+
+Key:
+  Para: Paragraph word count
+  Bullets: Point count (total words)
+  Numbered: Item count (total words)
 
 === CONTENT INSTRUCTIONS ===
 1. Follow EXACTLY the placeholder order below
@@ -31,67 +34,50 @@ Placeholder Ordering:
 
 Slide 1:
   {{CONTENT_1_SLIDE_1_W2}}
-  {{CONTENT_2_SLIDE_1_W2}}
-  {{CONTENT_3_SLIDE_1_W2}}
+  {{CONTENT_2_SLIDE_1_W3}}
 
 Slide 2:
   {{HEADER_1_SLIDE_2_W2}}
-  {{CONTENT_2_SLIDE_2_W2}}
-  {{CONTENT_3_SLIDE_2_W3}}
-  {{CONTENT_4_SLIDE_2_W2}}
-  {{CONTENT_5_SLIDE_2_W2}}
-  {{CONTENT_6_SLIDE_2_W2}}
+  {{BULLET_2_SLIDE_2_W8}}
 
 Slide 3:
   {{HEADER_1_SLIDE_3_W1}}
-  {{CONTENT_2_SLIDE_3_W85}}
+  {{BULLET_2_SLIDE_3_W92}}
 
 Slide 4:
-  {{HEADER_1_SLIDE_4_W2}}
-  {{CONTENT_2_SLIDE_4_W51}}
+  {{HEADER_1_SLIDE_4_W1}}
+  {{CONTENT_2_SLIDE_4_W50}}
+  {{CONTENT_3_SLIDE_4_W50}}
 
 Slide 5:
   {{HEADER_1_SLIDE_5_W1}}
-  {{CONTENT_2_SLIDE_5_W51}}
-  {{CONTENT_3_SLIDE_5_W51}}
+  {{CONTENT_2_SLIDE_5_W50}}
+  {{CONTENT_3_SLIDE_5_W50}}
 
 Slide 6:
   {{HEADER_1_SLIDE_6_W1}}
-  {{CONTENT_2_SLIDE_6_W2}}
-  {{CONTENT_3_SLIDE_6_W2}}
-  {{CONTENT_4_SLIDE_6_W38}}
-  {{CONTENT_5_SLIDE_6_W38}}
+  {{BULLET_2_SLIDE_6_W92}}
 
 Slide 7:
-  {{HEADER_1_SLIDE_7_W1}}
-  {{CONTENT_2_SLIDE_7_W1}}
-  {{CONTENT_3_SLIDE_7_W1}}
-  {{CONTENT_4_SLIDE_7_W1}}
-  {{CONTENT_5_SLIDE_7_W28}}
-  {{CONTENT_6_SLIDE_7_W28}}
-  {{CONTENT_7_SLIDE_7_W28}}
+  {{HEADER_1_SLIDE_7_W2}}
+  {{BULLET_2_SLIDE_7_W92}}
 
 Slide 8:
   {{HEADER_1_SLIDE_8_W1}}
-  {{CONTENT_2_SLIDE_8_W51}}
+  {{CONTENT_2_SLIDE_8_W50}}
+  {{CONTENT_3_SLIDE_8_W50}}
+  {{CONTENT_4_SLIDE_8_W50}}
 
 Slide 9:
   {{HEADER_1_SLIDE_9_W1}}
-  {{CONTENT_2_SLIDE_9_W28}}
-  {{CONTENT_3_SLIDE_9_W28}}
+  {{BULLET_2_SLIDE_9_W92}}
 
 Slide 10:
   {{HEADER_1_SLIDE_10_W1}}
-  {{CONTENT_2_SLIDE_10_W51}}
-  {{CONTENT_3_SLIDE_10_W51}}
+  {{CONTENT_2_SLIDE_10_W50}}
 
 Slide 11:
-  {{HEADER_1_SLIDE_11_W1}}
+  {{CONTENT_1_SLIDE_11_W3}}
 
 Slide 12:
-  {{HEADER_1_SLIDE_12_W1}}
-  {{CONTENT_2_SLIDE_12_W51}}
-  {{CONTENT_3_SLIDE_12_W51}}
-
-Slide 13:
-  {{CONTENT_1_SLIDE_13_W2}}
+  {{CONTENT_1_SLIDE_12_W2}}

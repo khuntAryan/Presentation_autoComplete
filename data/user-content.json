@@ -1,97 +1,78 @@
 {
   "slide_1": {
     "bullets": [
-      "Development",
-      "Project"
+      "Magic unfolds here"
     ],
-    "title": "Web"
+    "title": "Film"
   },
   "slide_2": {
     "bullets": [
-      "Aryan Khunt",
-      "Raj Patel",
-      "Dev Joshi",
-      "Parth Shah",
-      "Nikhil Desai"
+      "Aryan, Neha, Parth, Riya, Soham"
     ],
     "title": "Our Team"
   },
   "slide_3": {
     "bullets": [
-      "Web development involves building websites and applications using technologies like HTML, CSS, and JavaScript. It is split into frontend (user interface) and backend (server-side logic). This project explores web tech stacks, modern frameworks, and full-stack development trends. It also covers responsive design, accessibility, and performance optimization in real-world scenarios."
+      "Movies have captivated audiences for over a century, evolving from silent films to sound, color, and now digital formats. They are a reflection of society, dreams, struggles, and imagination. Cinema influences fashion, culture, and ideologies. It entertains, educates, and inspires. The rise of global cinema, OTT platforms, and indie creators has made films more diverse and accessible than ever before."
     ],
-    "title": "Introduction"
+    "title": "Background"
   },
   "slide_4": {
     "bullets": [
-      "Our project dives into how websites are designed, developed, and deployed using modern tools and best practices."
+      "Over-commercialization affects artistic quality",
+      "Lack of diversity in mainstream cinema",
+      "Piracy and illegal streaming harm the industry"
     ],
-    "title": "Project Overview"
+    "title": "Problems"
   },
   "slide_5": {
     "bullets": [
-      "To learn about core web technologies",
-      "To build a responsive web app",
-      "To apply real-world deployment strategies"
+      "Understand the evolution of cinema",
+      "Appreciate creative storytelling and direction",
+      "Promote diversity and ethical viewing habits"
     ],
-    "title": "Objectives"
+    "title": "Goals"
   },
   "slide_6": {
     "bullets": [
-      "Team Meetings",
-      "Module Assignments",
-      "Each member handled frontend or backend tasks",
-      "We used Git for version control and VS Code for development"
+      "Movies impact emotions, perceptions, and cultures. They have the power to tell untold stories and amplify unheard voices. From short films to blockbusters, every format serves a purpose. With visual effects, music, and acting, films convey deep messages. The challenge lies in balancing artistic intent with mass appeal."
     ],
-    "title": "Methodology"
+    "title": "Cinematic Power"
   },
   "slide_7": {
     "bullets": [
-      "Planning",
-      "Designing",
-      "Coding",
-      "We planned the structure of our site",
-      "Designed using Figma and CSS frameworks",
-      "Implemented using React and Node.js"
+      "Recent studies show action and thriller genres lead box office revenue. Independent films gain popularity for authentic storytelling. Streaming services are reshaping viewer habits globally."
     ],
-    "title": "Process"
+    "title": "Film Industry Trends"
   },
   "slide_8": {
     "bullets": [
-      "The development process revealed how component-based design improves reusability and scalability in modern apps."
+      "Audiences prefer relatable and original plots",
+      "Short films are rising among young creators",
+      "Global cinema consumption is higher than ever"
     ],
-    "title": "Analysis"
+    "title": "Result"
   },
   "slide_9": {
     "bullets": [
-      "We tracked commit history",
-      "Monitored page speed metrics",
-      "Collected feedback using user surveys"
-    ],
-    "title": "Data"
-  },
-  "slide_10": {
-    "bullets": [
-      "Web dev teaches problem-solving and design",
-      "Teamwork improved our efficiency",
-      "We built a deployable full-stack web app"
+      "Movies are more than entertainment",
+      "They shape culture, voice emotion, and drive thought"
     ],
     "title": "Conclusion"
   },
+  "slide_10": {
+    "bullets": [
+      "Sources included IMDB trends, filmmaker interviews, and box office data"
+    ],
+    "title": "Documentation"
+  },
   "slide_11": {
     "bullets": [],
-    "title": "Documentation"
+    "title": "Any questions here?"
   },
   "slide_12": {
     "bullets": [
-      "Learn DevOps and CI/CD pipelines",
-      "Try building with Next.js and Tailwind CSS"
-    ],
-    "title": "Recommendation"
-  },
-  "slide_13": {
-    "bullets": [
-      "SRM"
+      "Everyone"
     ],
     "title": "Thank You"
   }

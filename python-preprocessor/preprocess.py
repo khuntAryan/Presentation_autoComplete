@@ -189,21 +189,49 @@ def get_slide_overview(slide, idx):
                 title = shape.text.strip()
                 break
 
-    if title:
-        t = title.lower()
-        if any(word in t for word in ["agenda", "contents", "table of contents"]):
-            slide_type = "Table of Contents"
-        elif any(word in t for word in ["introduction", "welcome"]):
-            slide_type = "Introduction"
-        elif any(word in t for word in ["conclusion", "summary"]):
-            slide_type = "Conclusion"
-        elif any(word in t for word in ["team", "members"]):
-            slide_type = "Team"
-        else:
-            slide_type = "Content"
-    else:
-        slide_type = "Unknown"
-    return f"Slide {idx+1}: {slide_type} ({title if title else 'No title'})"
+    # Content analysis
+    paragraph_word_count = 0
+    bullet_count = 0
+    bullet_word_count = 0
+    numbered_count = 0
+    numbered_word_count = 0
+
+    for shape in slide.shapes:
+        if shape.has_text_frame:
+            for paragraph in shape.text_frame.paragraphs:
+                text = paragraph.text.strip()
+                if not text:
+                    continue
+                
+                # Detect bullet points (level 0 with bullet indicator)
+                if paragraph.level == 0 and any(text.startswith(char) 
+                       for char in CONFIG['position_thresholds']['bullet_indicator']):
+                    bullet_count += 1
+                    bullet_word_count += len(text.split())
+                
+                # Detect numbered lists
+                elif re.match(r'^\d+\.\s', text):
+                    numbered_count += 1
+                    numbered_word_count += len(text.split())
+                
+                # Regular paragraph content
+                else:
+                    paragraph_word_count += len(text.split())
+
+    # Build overview
+    overview = f"Slide {idx+1}: {title if title else 'Untitled'}"
+    metrics = []
+    if paragraph_word_count > 0:
+        metrics.append(f"Para: {paragraph_word_count}w")
+    if bullet_count > 0:
+        metrics.append(f"Bullets: {bullet_count} ({bullet_word_count}w)")
+    if numbered_count > 0:
+        metrics.append(f"Numbered: {numbered_count} ({numbered_word_count}w)")
+    
+    if metrics:
+        overview += f" [{' | '.join(metrics)}]"
+    
+    return overview
 
 def get_placeholder_naming_description():
     return "Placeholders are ordered top-to-bottom, then left-to-right. The first element at the top is index 1."
@@ -216,12 +244,14 @@ def write_json_mapping(mapping: Dict[str, List[str]], json_path: str):
 
 def log_description(mapping: Dict[str, List[str]], slide_overviews, naming_desc):
     desc = []
-    desc.append("\n=== PRESENTATION OVERVIEW ===")
-    desc.append("Slide Structure:")
+    desc.append("\n=== PRESENTATION ANALYSIS ===")
+    desc.append("Slide Structure (with content analysis):")
     for ov in slide_overviews:
         desc.append(f"  - {ov}")
-    desc.append("\nPlaceholder Ordering:")
-    desc.append(f"  - {naming_desc}")
+    desc.append("\nKey:")
+    desc.append("  Para: Paragraph word count")
+    desc.append("  Bullets: Point count (total words)")
+    desc.append("  Numbered: Item count (total words)")
     desc.append("\n=== CONTENT INSTRUCTIONS ===")
     desc.append("1. Follow EXACTLY the placeholder order below")
     desc.append("2. Write one line per placeholder")

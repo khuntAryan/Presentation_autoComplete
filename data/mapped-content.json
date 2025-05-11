@@ -1,69 +1,52 @@
 {
   "slide_1": [
     "{{CONTENT_1_SLIDE_1_W2}}",
-    "{{CONTENT_2_SLIDE_1_W2}}",
-    "{{CONTENT_3_SLIDE_1_W2}}"
+    "{{CONTENT_2_SLIDE_1_W3}}"
   ],
   "slide_2": [
     "{{HEADER_1_SLIDE_2_W2}}",
-    "{{CONTENT_2_SLIDE_2_W2}}",
-    "{{CONTENT_3_SLIDE_2_W3}}",
-    "{{CONTENT_4_SLIDE_2_W2}}",
-    "{{CONTENT_5_SLIDE_2_W2}}",
-    "{{CONTENT_6_SLIDE_2_W2}}"
+    "{{BULLET_2_SLIDE_2_W8}}"
   ],
   "slide_3": [
     "{{HEADER_1_SLIDE_3_W1}}",
-    "{{CONTENT_2_SLIDE_3_W85}}"
+    "{{BULLET_2_SLIDE_3_W92}}"
   ],
   "slide_4": [
-    "{{HEADER_1_SLIDE_4_W2}}",
-    "{{CONTENT_2_SLIDE_4_W51}}"
+    "{{HEADER_1_SLIDE_4_W1}}",
+    "{{CONTENT_2_SLIDE_4_W50}}",
+    "{{CONTENT_3_SLIDE_4_W50}}"
   ],
   "slide_5": [
     "{{HEADER_1_SLIDE_5_W1}}",
-    "{{CONTENT_2_SLIDE_5_W51}}",
-    "{{CONTENT_3_SLIDE_5_W51}}"
+    "{{CONTENT_2_SLIDE_5_W50}}",
+    "{{CONTENT_3_SLIDE_5_W50}}"
   ],
   "slide_6": [
     "{{HEADER_1_SLIDE_6_W1}}",
-    "{{CONTENT_2_SLIDE_6_W2}}",
-    "{{CONTENT_3_SLIDE_6_W2}}",
-    "{{CONTENT_4_SLIDE_6_W38}}",
-    "{{CONTENT_5_SLIDE_6_W38}}"
+    "{{BULLET_2_SLIDE_6_W92}}"
   ],
   "slide_7": [
-    "{{HEADER_1_SLIDE_7_W1}}",
-    "{{CONTENT_2_SLIDE_7_W1}}",
-    "{{CONTENT_3_SLIDE_7_W1}}",
-    "{{CONTENT_4_SLIDE_7_W1}}",
-    "{{CONTENT_5_SLIDE_7_W28}}",
-    "{{CONTENT_6_SLIDE_7_W28}}",
-    "{{CONTENT_7_SLIDE_7_W28}}"
+    "{{HEADER_1_SLIDE_7_W2}}",
+    "{{BULLET_2_SLIDE_7_W92}}"
   ],
   "slide_8": [
     "{{HEADER_1_SLIDE_8_W1}}",
-    "{{CONTENT_2_SLIDE_8_W51}}"
+    "{{CONTENT_2_SLIDE_8_W50}}",
+    "{{CONTENT_3_SLIDE_8_W50}}",
+    "{{CONTENT_4_SLIDE_8_W50}}"
   ],
   "slide_9": [
     "{{HEADER_1_SLIDE_9_W1}}",
-    "{{CONTENT_2_SLIDE_9_W28}}",
-    "{{CONTENT_3_SLIDE_9_W28}}"
+    "{{BULLET_2_SLIDE_9_W92}}"
   ],
   "slide_10": [
     "{{HEADER_1_SLIDE_10_W1}}",
-    "{{CONTENT_2_SLIDE_10_W51}}",
-    "{{CONTENT_3_SLIDE_10_W51}}"
+    "{{CONTENT_2_SLIDE_10_W50}}"
   ],
   "slide_11": [
-    "{{HEADER_1_SLIDE_11_W1}}"
+    "{{CONTENT_1_SLIDE_11_W3}}"
   ],
   "slide_12": [
-    "{{HEADER_1_SLIDE_12_W1}}",
-    "{{CONTENT_2_SLIDE_12_W51}}",
-    "{{CONTENT_3_SLIDE_12_W51}}"
-  ],
-  "slide_13": [
-    "{{CONTENT_1_SLIDE_13_W2}}"
+    "{{CONTENT_1_SLIDE_12_W2}}"
   ]
 }
