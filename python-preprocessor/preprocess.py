@@ -70,7 +70,6 @@ def is_image_placeholder(shape) -> bool:
 def detect_placeholder_type(shape, text: str, slide_height: int) -> str:
     text_lower = text.lower()
     shape_name = shape.name.lower()
-
     if any(char in text for char in CONFIG['position_thresholds']['bullet_indicator']):
         return CONFIG['type_mapping']['bullet']
     if 'title' in shape_name:
@@ -83,8 +82,9 @@ def detect_placeholder_type(shape, text: str, slide_height: int) -> str:
         return CONFIG['type_mapping']['bullet']
     return CONFIG['type_mapping']['content']
 
-def generate_placeholder_name(placeholder_type: str, slide_num: int, index: int, word_count: int) -> str:
-    return f"{CONFIG['placeholder_prefix']}{placeholder_type}_{index}_SLIDE_{slide_num}_W{word_count}{CONFIG['placeholder_suffix']}"
+def generate_placeholder_name(placeholder_type: str, slide_num: int, index: int, char_count: int) -> str:
+    """Generate placeholder name with position index and character count"""
+    return f"{CONFIG['placeholder_prefix']}{placeholder_type}_{index}_SLIDE_{slide_num}_C{char_count}{CONFIG['placeholder_suffix']}"
 
 def process_slide_shapes(slide, slide_num: int, slide_height: int) -> Tuple[List[str], int]:
     placeholders = []
@@ -101,26 +101,26 @@ def process_slide_shapes(slide, slide_num: int, slide_height: int) -> Tuple[List
                 continue
 
             placeholder_type = detect_placeholder_type(shape, text, slide_height)
-            word_count = len(re.findall(r'\b[\w-]+\b', text))
+            char_count = len(text)
 
             new_name = generate_placeholder_name(
                 placeholder_type=placeholder_type,
                 slide_num=slide_num,
                 index=index,
-                word_count=word_count
+                char_count=char_count
             )
 
             set_text_preserve_formatting(shape.text_frame, new_name)
             placeholders.append(new_name)
             index += 1
-            logger.info(f"Renamed '{text}' to '{new_name}'")
+            logger.info(f"Renamed '{text}' to '{new_name}' (Characters: {char_count})")
 
         elif is_image_placeholder(shape):
             new_name = generate_placeholder_name(
                 placeholder_type=CONFIG['type_mapping']['image'],
                 slide_num=slide_num,
                 index=index,
-                word_count=0
+                char_count=0
             )
             placeholders.append(new_name)
             index += 1
@@ -143,35 +143,32 @@ def process_grouped_shapes(group_shape, slide_num: int, slide_height: int, start
                 continue
 
             placeholder_type = detect_placeholder_type(shape, text, slide_height)
-            word_count = len(re.findall(r'\b[\w-]+\b', text))
+            char_count = len(text)
 
             new_name = generate_placeholder_name(
                 placeholder_type=placeholder_type,
                 slide_num=slide_num,
                 index=index,
-                word_count=word_count
+                char_count=char_count
             )
 
             set_text_preserve_formatting(shape.text_frame, new_name)
             placeholders.append(new_name)
             index += 1
-            logger.info(f"Renamed '{text}' to '{new_name}'")
+            logger.info(f"Renamed '{text}' to '{new_name}' (Characters: {char_count})")
 
     return placeholders, index
 
 def process_pptx(input_path: str, output_path: str) -> Tuple[bool, Set[str], Dict[str, List[str]]]:
-    """Main processing with sequential index tracking"""
     try:
         prs = Presentation(input_path)
         placeholders = set()
         mapped = {}
-
         for slide_idx, slide in enumerate(prs.slides, 1):
             logger.info(f"\nProcessing slide {slide_idx}")
             slide_placeholders, _ = process_slide_shapes(slide, slide_idx, prs.slide_height)
             placeholders.update(slide_placeholders)
             mapped[f"slide_{slide_idx}"] = slide_placeholders
-
         prs.save(output_path)
         logger.info(f"\nTotal placeholders processed: {len(placeholders)}")
         return True, placeholders, mapped
@@ -189,12 +186,9 @@ def get_slide_overview(slide, idx):
                 title = shape.text.strip()
                 break
 
-    # Content analysis
-    paragraph_word_count = 0
-    bullet_count = 0
-    bullet_word_count = 0
-    numbered_count = 0
-    numbered_word_count = 0
+    para_char_counts = []
+    bullet_char_counts = []
+    numbered_char_counts = []
 
     for shape in slide.shapes:
         if shape.has_text_frame:
@@ -202,35 +196,24 @@ def get_slide_overview(slide, idx):
                 text = paragraph.text.strip()
                 if not text:
                     continue
-                
-                # Detect bullet points (level 0 with bullet indicator)
-                if paragraph.level == 0 and any(text.startswith(char) 
-                       for char in CONFIG['position_thresholds']['bullet_indicator']):
-                    bullet_count += 1
-                    bullet_word_count += len(text.split())
-                
-                # Detect numbered lists
+                char_count = len(text)
+                if paragraph.level == 0 and any(text.startswith(char) for char in CONFIG['position_thresholds']['bullet_indicator']):
+                    bullet_char_counts.append(char_count)
                 elif re.match(r'^\d+\.\s', text):
-                    numbered_count += 1
-                    numbered_word_count += len(text.split())
-                
-                # Regular paragraph content
+                    numbered_char_counts.append(char_count)
                 else:
-                    paragraph_word_count += len(text.split())
+                    para_char_counts.append(char_count)
 
-    # Build overview
     overview = f"Slide {idx+1}: {title if title else 'Untitled'}"
     metrics = []
-    if paragraph_word_count > 0:
-        metrics.append(f"Para: {paragraph_word_count}w")
-    if bullet_count > 0:
-        metrics.append(f"Bullets: {bullet_count} ({bullet_word_count}w)")
-    if numbered_count > 0:
-        metrics.append(f"Numbered: {numbered_count} ({numbered_word_count}w)")
-    
+    if para_char_counts:
+        metrics.extend([f"Para {i+1}: {c} chars" for i, c in enumerate(para_char_counts)])
+    if bullet_char_counts:
+        metrics.extend([f"Bullet {i+1}: {c} chars" for i, c in enumerate(bullet_char_counts)])
+    if numbered_char_counts:
+        metrics.extend([f"Numbered {i+1}: {c} chars" for i, c in enumerate(numbered_char_counts)])
     if metrics:
-        overview += f" [{' | '.join(metrics)}]"
-    
+        overview += " [" + " | ".join(metrics) + "]"
     return overview
 
 def get_placeholder_naming_description():
@@ -249,17 +232,17 @@ def log_description(mapping: Dict[str, List[str]], slide_overviews, naming_desc)
     for ov in slide_overviews:
         desc.append(f"  - {ov}")
     desc.append("\nKey:")
-    desc.append("  Para: Paragraph word count")
-    desc.append("  Bullets: Point count (total words)")
-    desc.append("  Numbered: Item count (total words)")
+    desc.append("  Para: Paragraph character count")
+    desc.append("  Bullet: Bullet character count")
+    desc.append("  Numbered: Numbered item character count")
     desc.append("\n=== CONTENT INSTRUCTIONS ===")
     desc.append("1. Follow EXACTLY the placeholder order below")
     desc.append("2. Write one line per placeholder")
-    desc.append("3. Keep within word limits (W value)")
+    desc.append("3. Keep within character limits (C value)")
     desc.append("4. Example:")
     desc.append("   Slide 2: Objectives")
-    desc.append("   Understand key concepts")
-    desc.append("   • First bullet point")
+    desc.append("   {{CONTENT_1_SLIDE_2_C150} (max 150 characters)")
+    desc.append("   {{BULLET_2_SLIDE_2_C50} (max 50 characters)")
     desc.append("\n=== PLACEHOLDER LIST ===")
     
     for slide_key in sorted(mapping.keys(), key=lambda x: int(x.split('_')[1])):
@@ -268,7 +251,7 @@ def log_description(mapping: Dict[str, List[str]], slide_overviews, naming_desc)
         desc.append(f"\nSlide {slide_num}:")
         for ph in phs:
             desc.append(f"  {ph}")
-    
+
     return '\n'.join(desc)
 
 def write_description_to_file(mapping: Dict[str, List[str]], path: str, slide_overviews, naming_desc):
@@ -287,9 +270,8 @@ def main():
     output_file = sys.argv[2]
 
     success, placeholders, mapping = process_pptx(input_file, output_file)
-
     if success:
-        prs = Presentation(input_file)  # Open again for overviews
+        prs = Presentation(input_file)
         slide_overviews = [get_slide_overview(slide, idx) for idx, slide in enumerate(prs.slides)]
         naming_desc = get_placeholder_naming_description()
 

@@ -68,8 +68,6 @@
   <div id="uploadStatus"></div>
   <hr />
 
-  <button id="processBtn">Process PPTX</button>
-  <div id="processStatus"></div>
   
   <!-- AI Prompt Section (Initially Hidden) -->
   <div id="promptContainer" class="prompt-container hidden">
@@ -78,17 +76,13 @@
     <div id="promptContent" class="prompt-content"></div>
     <div class="action-buttons">
       <button id="copyPromptBtn">Copy to Clipboard</button>
-      <span id="copyFeedback" class="copy-feedback">✓ Copied!</span>
+<span id="copyFeedback" class="copy-feedback">✓ Copied!</span>
     </div>
   </div>
   <hr />
 
   <h2>Paste All Slide Content Below</h2>
-  <form id="contentForm">
-    <textarea id="bulkContent" rows="25" style="width:98%;" placeholder="Paste all your content here..."></textarea><br>
-    <button type="submit">Save Content</button>
-  </form>
-  <div id="contentStatus"></div>
+  <textarea id="bulkContent" rows="25" style="width:98%;" placeholder="Paste all your content here..."></textarea>
   <hr />
 
   <button id="generateBtn">Generate Final PPTX</button>
@@ -109,3 +103,5 @@
   <script src="./app.js"></script>
 </body>
 </html>
+
+

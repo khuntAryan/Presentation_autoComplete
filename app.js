@@ -30,27 +30,26 @@ const upload = multer({ dest: 'temp/' });
 app.post('/upload-pptx', upload.single('pptx'), (req, res) => {
   const tempPath = req.file.path;
   const targetPath = path.join(__dirname, 'python-preprocessor/templates/sample2.pptx');
-  fs.rename(tempPath, targetPath, err => {
+
+  fs.rename(tempPath, targetPath, async (err) => {
     if (err) {
       console.error('❌ Error moving file:', err);
       return res.status(500).send('Error saving file.');
     }
-    console.log('✅ File saved to:', targetPath);
-    res.send('File uploaded successfully.');
+
+    // Process immediately after upload
+    exec(`python3 "${pythonScriptPath}" "${targetPath}" "${outputPath}"`, (error, stdout, stderr) => {
+      if (error) {
+        console.error("❌ Processing error:", error);
+        return res.status(500).send('Processing failed after upload');
+      }
+      console.log("✅ Python stdout:", stdout);
+      console.error("⚠️ Python stderr:", stderr);
+      res.send('File uploaded and processed successfully');
+    });
   });
 });
 
-app.post('/process-pptx', (req, res) => {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error("❌ Python error:", error);
-      return res.status(500).send('Error processing PPTX file.');
-    }
-    console.log("✅ Python stdout:", stdout);
-    console.error("⚠️ Python stderr:", stderr);
-    res.send('PPTX file processed successfully! AI prompt is ready below.');
-  });
-});
 
 // New endpoint to get AI prompt
 app.get('/get-ai-prompt', (req, res) => {

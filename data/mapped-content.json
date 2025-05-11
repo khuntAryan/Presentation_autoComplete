@@ -1,52 +1,52 @@
 {
   "slide_1": [
-    "{{CONTENT_1_SLIDE_1_W2}}",
-    "{{CONTENT_2_SLIDE_1_W3}}"
+    "{{CONTENT_1_SLIDE_1_C15}}",
+    "{{CONTENT_2_SLIDE_1_C19}}"
   ],
   "slide_2": [
-    "{{HEADER_1_SLIDE_2_W2}}",
-    "{{BULLET_2_SLIDE_2_W8}}"
+    "{{HEADER_1_SLIDE_2_C8}}",
+    "{{BULLET_2_SLIDE_2_C52}}"
   ],
   "slide_3": [
-    "{{HEADER_1_SLIDE_3_W1}}",
-    "{{BULLET_2_SLIDE_3_W92}}"
+    "{{HEADER_1_SLIDE_3_C10}}",
+    "{{BULLET_2_SLIDE_3_C603}}"
   ],
   "slide_4": [
-    "{{HEADER_1_SLIDE_4_W1}}",
-    "{{CONTENT_2_SLIDE_4_W50}}",
-    "{{CONTENT_3_SLIDE_4_W50}}"
+    "{{HEADER_1_SLIDE_4_C8}}",
+    "{{CONTENT_2_SLIDE_4_C326}}",
+    "{{CONTENT_3_SLIDE_4_C326}}"
   ],
   "slide_5": [
-    "{{HEADER_1_SLIDE_5_W1}}",
-    "{{CONTENT_2_SLIDE_5_W50}}",
-    "{{CONTENT_3_SLIDE_5_W50}}"
+    "{{HEADER_1_SLIDE_5_C5}}",
+    "{{CONTENT_2_SLIDE_5_C326}}",
+    "{{CONTENT_3_SLIDE_5_C326}}"
   ],
   "slide_6": [
-    "{{HEADER_1_SLIDE_6_W1}}",
-    "{{BULLET_2_SLIDE_6_W92}}"
+    "{{HEADER_1_SLIDE_6_C6}}",
+    "{{BULLET_2_SLIDE_6_C603}}"
   ],
   "slide_7": [
-    "{{HEADER_1_SLIDE_7_W2}}",
-    "{{BULLET_2_SLIDE_7_W92}}"
+    "{{HEADER_1_SLIDE_7_C13}}",
+    "{{BULLET_2_SLIDE_7_C603}}"
   ],
   "slide_8": [
-    "{{HEADER_1_SLIDE_8_W1}}",
-    "{{CONTENT_2_SLIDE_8_W50}}",
-    "{{CONTENT_3_SLIDE_8_W50}}",
-    "{{CONTENT_4_SLIDE_8_W50}}"
+    "{{HEADER_1_SLIDE_8_C6}}",
+    "{{CONTENT_2_SLIDE_8_C326}}",
+    "{{CONTENT_3_SLIDE_8_C326}}",
+    "{{CONTENT_4_SLIDE_8_C326}}"
   ],
   "slide_9": [
-    "{{HEADER_1_SLIDE_9_W1}}",
-    "{{BULLET_2_SLIDE_9_W92}}"
+    "{{HEADER_1_SLIDE_9_C10}}",
+    "{{BULLET_2_SLIDE_9_C603}}"
   ],
   "slide_10": [
-    "{{HEADER_1_SLIDE_10_W1}}",
-    "{{CONTENT_2_SLIDE_10_W50}}"
+    "{{HEADER_1_SLIDE_10_C13}}",
+    "{{CONTENT_2_SLIDE_10_C326}}"
   ],
   "slide_11": [
-    "{{CONTENT_1_SLIDE_11_W3}}"
+    "{{CONTENT_1_SLIDE_11_C25}}"
   ],
   "slide_12": [
-    "{{CONTENT_1_SLIDE_12_W2}}"
+    "{{CONTENT_1_SLIDE_12_C9}}"
   ]
 }

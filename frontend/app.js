@@ -1,71 +1,75 @@
 document.getElementById('uploadForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
-  const res = await fetch('/upload-pptx', { method: 'POST', body: formData });
-  const message = await res.text();
-  document.getElementById('uploadStatus').textContent = message;
-});
+  const statusElement = document.getElementById('uploadStatus');
+  
+  try {
+    statusElement.textContent = "Uploading and processing...";
+    
+    // Single request handles both upload and processing
+    const uploadRes = await fetch('/upload-pptx', {
+      method: 'POST',
+      body: formData
+    });
+    
+    if (!uploadRes.ok) throw new Error(await uploadRes.text());
 
-document.getElementById('processBtn').addEventListener('click', async () => {
-  document.getElementById('processStatus').textContent = "Processing, please wait...";
-  document.getElementById('promptContainer').classList.add('hidden');
-  
-  const res = await fetch('/process-pptx', { method: 'POST' });
-  const message = await res.text();
-  document.getElementById('processStatus').textContent = message;
-  
-  if (res.ok) {
-    // Show AI prompt after successful processing
-    try {
-      const promptRes = await fetch('/get-ai-prompt');
-      if (promptRes.ok) {
-        const promptText = await promptRes.text();
-        document.getElementById('promptContent').textContent = promptText;
-        document.getElementById('promptContainer').classList.remove('hidden');
-      }
-    } catch (err) {
-      console.error("Error fetching prompt:", err);
-    }
+    // Directly show AI prompt after successful processing
+    statusElement.textContent = "✅ Processing complete!";
+    const promptRes = await fetch('/get-ai-prompt');
+    const promptText = await promptRes.text();
+    
+    document.getElementById('promptContent').textContent = promptText;
+    document.getElementById('promptContainer').classList.remove('hidden');
+    
+  } catch (err) {
+    statusElement.textContent = `❌ Error: ${err.message}`;
   }
 });
 
-// Copy prompt to clipboard
+// Attach event listener for the copy button
 document.getElementById('copyPromptBtn').addEventListener('click', async () => {
-  const promptText = document.getElementById('promptContent').textContent;
+  const text = document.getElementById('promptContent').textContent;
   try {
-    await navigator.clipboard.writeText(promptText);
+    await navigator.clipboard.writeText(text);
+    // Show feedback
     const feedback = document.getElementById('copyFeedback');
     feedback.style.display = 'inline';
     setTimeout(() => {
       feedback.style.display = 'none';
-    }, 2000);
+    }, 1500);
   } catch (err) {
-    console.error("Error copying to clipboard:", err);
+    alert("Failed to copy text. Please copy manually.");
   }
 });
 
-document.getElementById('contentForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const bulkContent = document.getElementById('bulkContent').value;
-  const res = await fetch('/save-user-content', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ bulkContent })
-  });
-  const message = await res.text();
-  document.getElementById('contentStatus').textContent = message;
-});
-
+// Automatically save content on generate
 document.getElementById('generateBtn').addEventListener('click', async () => {
-  document.getElementById('generateStatus').textContent = "Generating, please wait...";
+  const generateStatus = document.getElementById('generateStatus');
+  const bulkContent = document.getElementById('bulkContent').value;
   document.getElementById('previewContainer').classList.add('hidden');
-  const res = await fetch('/generate-pptx', { method: 'POST' });
-  const message = await res.text();
-  document.getElementById('generateStatus').textContent = message;
+  generateStatus.textContent = "Saving content and generating PPTX...";
 
-  // Check if file exists before showing preview
-  const fileCheckResponse = await fetch('/check-file');
-  if (fileCheckResponse.ok && (await fileCheckResponse.json()).exists) {
-    document.getElementById('previewContainer').classList.remove('hidden');
+  try {
+    // 1. Save content automatically
+    const saveRes = await fetch('/save-user-content', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bulkContent })
+    });
+    if (!saveRes.ok) throw new Error(await saveRes.text());
+
+    // 2. Generate PPTX
+    const genRes = await fetch('/generate-pptx', { method: 'POST' });
+    const message = await genRes.text();
+    generateStatus.textContent = message;
+
+    // 3. Show preview if successful
+    const fileCheck = await fetch('/check-file');
+    if (fileCheck.ok && (await fileCheck.json()).exists) {
+      document.getElementById('previewContainer').classList.remove('hidden');
+    }
+  } catch (err) {
+    generateStatus.textContent = `Error: ${err.message}`;
   }
 });

@@ -1,83 +1,83 @@
 
 === PRESENTATION ANALYSIS ===
 Slide Structure (with content analysis):
-  - Slide 1: History Project [Para: 6w]
-  - Slide 2: Our Team [Para: 10w]
-  - Slide 3: Background [Para: 93w]
-  - Slide 4: Problems [Para: 101w]
-  - Slide 5: Goals [Para: 101w]
+  - Slide 1: History Project [Para 1: 15 chars | Para 2: 19 chars]
+  - Slide 2: Our Team [Para 1: 8 chars | Para 2: 10 chars | Para 3: 13 chars | Para 4: 13 chars | Para 5: 13 chars]
+  - Slide 3: Background [Para 1: 10 chars | Para 2: 326 chars | Para 3: 274 chars]
+  - Slide 4: Problems [Para 1: 8 chars | Para 2: 326 chars | Para 3: 326 chars]
+  - Slide 5: Goals [Para 1: 5 chars | Para 2: 326 chars | Para 3: 326 chars]
   - Slide 6: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non elit mauris. Cras euismod, metus ac finibus finibus, felis dui suscipit purus, a maximus leo ligula at dolor. Morbi et malesuada purus. Phasellus a lacus sit amet urna tempor sollicitudin. Cras pretium tempor elit blandit egestas. Donec sed dignissim augue. 
 
-Suspendisse ac vulputate leo. Cras aliquet nunc ac velit cursus viverra. In hac habitasse platea dictumst. Nam tortor urna, semper ac nulla id, porttitor semper felis. Phasellus blandit eros viverra, ultricies nibh nec, viverra ipsum. Ut nec gravida massa, eu convallis est. [Para: 93w]
-  - Slide 7: Data Analysis [Para: 94w]
-  - Slide 8: Result [Para: 151w]
-  - Slide 9: Conclusion [Para: 93w]
-  - Slide 10: Documentation [Para: 51w]
-  - Slide 11: Questions and Discussions [Para: 3w]
-  - Slide 12: Thank You [Para: 2w]
+Suspendisse ac vulputate leo. Cras aliquet nunc ac velit cursus viverra. In hac habitasse platea dictumst. Nam tortor urna, semper ac nulla id, porttitor semper felis. Phasellus blandit eros viverra, ultricies nibh nec, viverra ipsum. Ut nec gravida massa, eu convallis est. [Para 1: 326 chars | Para 2: 274 chars | Para 3: 6 chars]
+  - Slide 7: Data Analysis [Para 1: 13 chars | Para 2: 326 chars | Para 3: 274 chars]
+  - Slide 8: Result [Para 1: 6 chars | Para 2: 326 chars | Para 3: 326 chars | Para 4: 326 chars]
+  - Slide 9: Conclusion [Para 1: 10 chars | Para 2: 326 chars | Para 3: 274 chars]
+  - Slide 10: Documentation [Para 1: 13 chars | Para 2: 326 chars]
+  - Slide 11: Questions and Discussions [Para 1: 25 chars]
+  - Slide 12: Thank You [Para 1: 9 chars]
 
 Key:
-  Para: Paragraph word count
-  Bullets: Point count (total words)
-  Numbered: Item count (total words)
+  Para: Paragraph character count
+  Bullet: Bullet character count
+  Numbered: Numbered item character count
 
 === CONTENT INSTRUCTIONS ===
 1. Follow EXACTLY the placeholder order below
 2. Write one line per placeholder
-3. Keep within word limits (W value)
+3. Keep within character limits (C value)
 4. Example:
    Slide 2: Objectives
-   Understand key concepts
-   • First bullet point
+   {{CONTENT_1_SLIDE_2_C150} (max 150 characters)
+   {{BULLET_2_SLIDE_2_C50} (max 50 characters)
 
 === PLACEHOLDER LIST ===
 
 Slide 1:
-  {{CONTENT_1_SLIDE_1_W2}}
-  {{CONTENT_2_SLIDE_1_W3}}
+  {{CONTENT_1_SLIDE_1_C15}}
+  {{CONTENT_2_SLIDE_1_C19}}
 
 Slide 2:
-  {{HEADER_1_SLIDE_2_W2}}
-  {{BULLET_2_SLIDE_2_W8}}
+  {{HEADER_1_SLIDE_2_C8}}
+  {{BULLET_2_SLIDE_2_C52}}
 
 Slide 3:
-  {{HEADER_1_SLIDE_3_W1}}
-  {{BULLET_2_SLIDE_3_W92}}
+  {{HEADER_1_SLIDE_3_C10}}
+  {{BULLET_2_SLIDE_3_C603}}
 
 Slide 4:
-  {{HEADER_1_SLIDE_4_W1}}
-  {{CONTENT_2_SLIDE_4_W50}}
-  {{CONTENT_3_SLIDE_4_W50}}
+  {{HEADER_1_SLIDE_4_C8}}
+  {{CONTENT_2_SLIDE_4_C326}}
+  {{CONTENT_3_SLIDE_4_C326}}
 
 Slide 5:
-  {{HEADER_1_SLIDE_5_W1}}
-  {{CONTENT_2_SLIDE_5_W50}}
-  {{CONTENT_3_SLIDE_5_W50}}
+  {{HEADER_1_SLIDE_5_C5}}
+  {{CONTENT_2_SLIDE_5_C326}}
+  {{CONTENT_3_SLIDE_5_C326}}
 
 Slide 6:
-  {{HEADER_1_SLIDE_6_W1}}
-  {{BULLET_2_SLIDE_6_W92}}
+  {{HEADER_1_SLIDE_6_C6}}
+  {{BULLET_2_SLIDE_6_C603}}
 
 Slide 7:
-  {{HEADER_1_SLIDE_7_W2}}
-  {{BULLET_2_SLIDE_7_W92}}
+  {{HEADER_1_SLIDE_7_C13}}
+  {{BULLET_2_SLIDE_7_C603}}
 
 Slide 8:
-  {{HEADER_1_SLIDE_8_W1}}
-  {{CONTENT_2_SLIDE_8_W50}}
-  {{CONTENT_3_SLIDE_8_W50}}
-  {{CONTENT_4_SLIDE_8_W50}}
+  {{HEADER_1_SLIDE_8_C6}}
+  {{CONTENT_2_SLIDE_8_C326}}
+  {{CONTENT_3_SLIDE_8_C326}}
+  {{CONTENT_4_SLIDE_8_C326}}
 
 Slide 9:
-  {{HEADER_1_SLIDE_9_W1}}
-  {{BULLET_2_SLIDE_9_W92}}
+  {{HEADER_1_SLIDE_9_C10}}
+  {{BULLET_2_SLIDE_9_C603}}
 
 Slide 10:
-  {{HEADER_1_SLIDE_10_W1}}
-  {{CONTENT_2_SLIDE_10_W50}}
+  {{HEADER_1_SLIDE_10_C13}}
+  {{CONTENT_2_SLIDE_10_C326}}
 
 Slide 11:
-  {{CONTENT_1_SLIDE_11_W3}}
+  {{CONTENT_1_SLIDE_11_C25}}
 
 Slide 12:
-  {{CONTENT_1_SLIDE_12_W2}}
+  {{CONTENT_1_SLIDE_12_C9}}
